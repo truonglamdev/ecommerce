@@ -1,0 +1,304 @@
+@import '../../../sass/mixin';
+
+
+.container {
+    display: flex;
+    background-color: rgb(252, 238, 238);
+    width: 100vw;
+    max-width: 100%;
+    padding: 80px;
+    box-sizing: border-box;
+
+    @include tablet {
+        padding: 54px;
+    }
+
+    @include mobile {
+        padding: 40px;
+    }
+}
+
+.slide-box {
+    width: 50%;
+    border: 1px solid white;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-slide {
+    width: 340px;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 0;
+
+    @include tablet {
+        width: 280px;
+        padding: 14px;
+    }
+
+    @include mobile {
+        width: 250px;
+        padding: 10px;
+    }
+}
+
+.slide-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-box {
+    flex: 1;
+    border: 1px solid white;
+    padding: 28px 20px;
+
+    @include tablet {
+        padding: 18px 10px;
+    }
+
+    @include mobile {
+        padding: 12px 4px;
+    }
+}
+
+.product-name {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto';
+    margin: 10px 0;
+    color: #333;
+
+    @include tablet {
+        margin: 6px 0;
+    }
+
+    @include mobile {
+        margin: 0;
+    }
+}
+
+.name {
+    margin-right: 8px;
+    font-size: 2rem;
+    font-weight: 600;
+
+    @include tablet {
+        margin-right: 4px;
+        font-size: 1.6rem;
+    }
+
+    @include mobile {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+}
+
+.product-id {
+    margin-top: 4px;
+    font-size: 1rem;
+    font-weight: 400;
+
+    @include mobile {
+        font-size: 0.8rem;
+    }
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    padding: 16px 0;
+    margin: 20px 0;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    border-top: 1px solid rgba(0, 0, 0, 0.205);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+
+    @include tablet {
+        padding: 12px 0;
+        margin: 14px 0;
+        font-size: 1.3rem;
+    }
+
+    @include mobile {
+        padding: 6px 0;
+        margin: 8px 0;
+        font-size: 1.1rem;
+        flex-direction: column;
+    }
+
+    div {
+        z-index: 0;
+        margin-right: 4px;
+    }
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-price {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: 'Roboto';
+
+    @include tablet {
+        font-size: 1.6rem;
+    }
+    @include mobile {
+        font-size: 1.4rem;
+    }
+}
+
+.product-status {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+
+    @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    width: 20px;
+    padding: 6px;
+    border: none;
+    border-radius: 1px;
+    background-color: rgba(0, 0, 0, 0.616);
+    color: white;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.quantity-input {
+    border: none;
+    padding: 8px;
+    width: 18px;
+    text-align: center;
+    outline: none;
+    font: 500 1rem 'Roboto';
+    color: rgba(0, 0, 0, 0.74);
+}
+
+.add-to-cart-btn {
+    margin-left: 10px;
+
+    @include mobile {
+        margin-left: 0;
+        margin-top: 6px;
+    }
+}
+
+.product-stock {
+    width: 80%;
+    padding: 20px 0;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: 'Roboto';
+    border-top: 1px solid rgba(0, 0, 0, 0.205);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
+
+    @include tablet {
+        padding: 16px 0;
+        font-size: 1.2rem;
+    }
+
+    @include mobile {
+        padding: 12px 0;
+        font-size: 1rem;
+    }
+
+    span {
+        font-weight: 600;
+        color: rgb(24, 166, 24);
+        &.active {
+            color: rgb(240, 65, 65);
+        }
+    }
+}
+
+.description {
+    margin: 12px 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-family: 'Roboto';
+    color: #333;
+
+    @include tablet {
+        font-size: 1.6rem;
+    }
+
+    @include mobile {
+        font-size: 1.2rem;
+        margin: 8px 0;
+    }
+
+    p {
+        margin: 4px 0;
+        font-size: 1.4rem;
+        font-weight: 400;
+
+        @include tablet {
+            font-size: 1.2rem;
+        }
+
+        @include mobile {
+            font-size: 1rem;
+        }
+    }
+}
+
+.heading-review {
+    width: 240px;
+    text-align: center;
+    padding: 8px 0;
+    margin: 20px auto;
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: 'Roboto';
+    border-bottom: 2px solid #eee;
+    color: rgb(43, 41, 41);
+
+    @include tablet {
+        width: 200px;
+        font-size: 1.8rem;
+    }
+
+    @include mobile {
+        width: 180px;
+        font-size: 1.6rem;
+    }
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    margin: 10px 0;
+}
+
+
+.no-review {
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-family: "Roboto";
+    color: #666;
+}

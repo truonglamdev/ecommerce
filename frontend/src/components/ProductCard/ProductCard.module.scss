@@ -1,0 +1,79 @@
+@import '../sass/mixin.scss';
+.wrapper {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: rgb(48, 48, 48);
+    margin: 20px 10px;
+    padding: 10px 6px;
+    border: 0.5px solid rgb(237, 232, 232);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.5s;
+
+    @include tablet {
+        width: 200px;
+        margin: 10px;
+    }
+
+    @include mobile {
+        width: 200px;
+    }
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+        transform: translateY(-10px);
+        border-color: var(--primary-color);
+        border: 1.2px solid var(--primary-color);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    &:hover .product-name {
+        text-decoration: underline;
+    }
+}
+
+.product-img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-name {
+    text-align: center;
+    margin: 8px 0 4px 0;
+    font-size: 1.6rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+
+    @include mobile {
+        font-size: 1.3rem;
+    }
+}
+
+.review {
+    display: inline-block;
+    margin-left: 34px;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    @include mobile {
+        font-size: 1.2rem;
+    }
+    div {
+        z-index: -1;
+    }
+}
+
+.product-price {
+    margin-top: 4px;
+    margin-left: 34px;
+    font-size: 1.4rem;
+    font-family: 'Roboto';
+    font-weight: 600;
+
+    @include mobile {
+        font-size: 1.2rem;
+    }
+}

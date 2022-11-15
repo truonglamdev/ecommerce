@@ -1,0 +1,105 @@
+@import 'normalize.css';
+@import '../sass/mixin';
+html {
+    font-size: 62.5%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --height-header-pc: 100px;
+    --height-header-tablet: 80px;
+    --height-header-mobile: 60px;
+    --mobile-width: 600px;
+    --tablet-width: 1024px;
+
+    --primary-color: #eb4034;
+    --primary-color-hover: #d65a51;
+}
+
+body {
+    text-rendering: optimizeSpeed;
+}
+
+.primary-btn {
+    min-width: 120px;
+    padding: 8px 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: 'Roboto';
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 999px;
+    background-color: var(--primary-color);
+    transition: 0.5 ease-in;
+
+    @include tablet {
+        min-width: 100px;
+        font-size: 1.2rem;
+    }
+
+    @include mobile {
+        min-width: 80px;
+        font-size: 1rem;
+        padding: 6px 4px;
+    }
+
+    &:hover {
+        background-color: var(--primary-color-hover);
+    }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-item {
+    background-color: rgb(255, 255, 255);
+    list-style: none;
+    border: 1px solid rgba(0, 0, 0, 0.178);
+    padding: 10px 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.page-link {
+    text-decoration: none;
+    font: 300 1rem 'Roboto';
+    color: rgb(80, 80, 80);
+    transition: all 0.3s;
+}
+
+.page-item:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.page-item:hover .page-link {
+    color: rgb(0, 0, 0);
+}
+
+.pageItemActive {
+    background-color: var(--primary-color);
+}
+
+.pageLinkActive {
+    color: white;
+}

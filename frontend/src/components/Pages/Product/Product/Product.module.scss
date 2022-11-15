@@ -1,0 +1,104 @@
+@import '../../../sass/mixin';
+.wrapper {
+    width: 100vw;
+    // margin-top: var(--height-header-pc);
+    max-width: 100%;
+    display: flex;
+
+    @include tablet {
+        flex-direction: column-reverse;
+    }
+
+    @include mobile {
+        flex-direction: column-reverse;
+    }
+}
+
+.product-container {
+    flex: 1;
+}
+
+.product-header {
+    width: 200px;
+    margin: 120px auto 10px auto;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Roboto';
+    font-weight: 500;
+    color: #555;
+    border-bottom: 2px solid #888;
+}
+
+.product-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    // padding: 0 10px;
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filter-container {
+    width: 20%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-right: 1px solid #eee;
+
+    @include tablet {
+        border-color: transparent;
+    }
+
+    @include mobile {
+        width: 200px;
+        border-color: transparent;
+    }
+
+}
+
+.filter-price {
+    width: 120px;
+    margin-left: 40px;
+}
+
+.filter-category {
+    margin-left: 40px;
+    font-size: 1.2rem;
+}
+
+.category-box {
+    padding: 0;
+
+    .category-link {
+        list-style: none;
+        color: rgba(0, 0, 0, 0.61);
+        font: 400 1.1rem 'Roboto';
+        margin: 6px 0;
+        cursor: pointer;
+        transition: all 0.5s;
+
+        &:hover {
+            color: var(--primary-color);
+        }
+    }
+}
+
+.title {
+    font-size: 1.6rem;
+}
+
+.filter-rating {
+    width: 120px;
+    margin-left: 40px;
+    padding: 0 10px;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+}

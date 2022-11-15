@@ -19,14 +19,30 @@ class ApiFeatures {
     }
 
     filter() {
-        let copyQueryStr = { ...this.queryStr };
-        //remove fields
-        const removeFields = ['keyword', 'page', 'limit'];
-        removeFields.forEach((key) => delete copyQueryStr[key]);
-        // filter for price anh rating
+        // let copyQueryStr = { ...this.queryStr };
+        // //remove fields
+        // const removeFields = ['keyword', 'page', 'limit'];
+        // removeFields.forEach((key) => delete copyQueryStr[key]);
+        // // filter for price anh rating
 
-        let queryStr = JSON.stringify(copyQueryStr);
+        // let queryStr = JSON.stringify(copyQueryStr);
+        // queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
+        // this.query = this.query.find(JSON.parse(queryStr));
+
+        // return this;
+
+
+        const queryCopy = { ...this.queryStr };
+        //   Removing some fields for category
+        const removeFields = ['keyword', 'page', 'limit'];
+
+        removeFields.forEach((key) => delete queryCopy[key]);
+
+        // Filter For Price and Rating
+
+        let queryStr = JSON.stringify(queryCopy);
         queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
+
         this.query = this.query.find(JSON.parse(queryStr));
 
         return this;
