@@ -40,13 +40,15 @@ function Header() {
         <div className={cx('wrapper')}>
             <ReactNavbar {...options} />
             <div className={cx('logo')}>
-               <Link to="/"> <img className={cx('logo-img')} src={logo} alt="logo"/></Link>
+                <Link to="/">
+                    <img className={cx('logo-img')} src={logo} alt="logo" />
+                </Link>
             </div>
             <div className={cx('actions')}>
                 <Link className={cx('icon')} to="/search">
                     <FontAwesomeIcon icon={faSearch} />
                 </Link>
-                <Link className={cx('icon')} to="/profile">
+                <Link className={cx('icon')} to="/login">
                     <FontAwesomeIcon icon={faUser} />
                 </Link>
                 <Link className={cx('icon')} to="/cart">

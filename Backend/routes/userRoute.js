@@ -18,7 +18,7 @@ const { isAuthenticatedUser, authorizeRoles } = require('../middleware/auth');
 
 const router = express.Router();
 router.route('/auth/register').post(register);
-router.route('/auth/login').post(login);
+router.route('/login').post(login);
 router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').put(resetPassword);
 router.route('/auth/logout').post(logout);

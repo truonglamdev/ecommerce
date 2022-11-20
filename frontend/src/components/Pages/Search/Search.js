@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
 import style from './Search.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 function Search() {

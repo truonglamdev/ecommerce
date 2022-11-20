@@ -1,0 +1,203 @@
+@import '../../sass/mixin';
+.wrapper {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+}
+
+.container {
+    overflow: hidden;
+    margin-top: 30px;
+    background-color: white;
+    width: 380px;
+    height: 400px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 0 10px;
+    @include tablet {
+        height: 400px;
+    }
+
+    @include mobile {
+        width: 300px;
+        height: 340px;
+    }
+}
+
+.login-signup-toggle {
+    display: flex;
+    height: 30px;
+}
+
+.title {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 10px 0;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-family: 'Roboto';
+    color: rgba(0, 0, 0, 0.678);
+    transition: 0.5 ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
+
+.toggle-btn {
+    width: 50%;
+    height: 3px;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--primary-color);
+    transition: all 0.5s;
+}
+
+.form-login,
+.form-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2vmax;
+    justify-content: space-evenly;
+    height: 70%;
+    transition: all 0.5s;
+}
+
+.form-register {
+    transform: translateY(-100%) translateX(-100vmax);
+}
+.email,
+.password,
+.name {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
+.password {
+    position: relative;
+}
+
+.icon-eye {
+    display: flex;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, 0.623);
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    &:hover {
+        color: black;
+    }
+}
+
+.forgot {
+    align-self: flex-end;
+    color: rgba(0, 0, 0, 0.651);
+    text-decoration: none;
+    transition: all 0.5s;
+    font: 500 1rem 'Gill Sans';
+}
+
+.email-input,
+.password-input,
+.name-input {
+    box-sizing: border-box;
+    padding: 12px 40px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: cursive;
+    border-radius: 6px;
+    outline: none;
+}
+
+.icon {
+    position: absolute;
+    transform: translateX(12px);
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, 0.623);
+    display: block;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.register-img {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    input::file-selector-button {
+        width: 40%;
+        z-index: 2;
+        height: 40px;
+        margin: 0%;
+        border: none;
+        font: 400 1rem cursive;
+        padding: 0 6px;
+        color: rgba(0, 0, 0, 0.623);
+        background-color: rgb(255, 255, 255);
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.login-btn,
+.register-btn {
+    border: none;
+    background-color: tomato;
+    color: white;
+    font: 300 1rem 'Roboto';
+    width: 100%;
+    padding: 10px;
+    transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--primary-color-hover);
+    }
+}
+
+.shiftToLeft {
+    transform: translateX(-100%);
+}
+.shiftToNeutral {
+    transform: translateX(0%);
+}
+
+.shiftToNeutralForm {
+    transform: translateX(0%) translateY(-100%);
+}
+
+.shiftToRight {
+    transform: translateX(100%);
+}
