@@ -38,7 +38,9 @@ function Header() {
 
     return (
         <div className={cx('wrapper')}>
-            <ReactNavbar {...options} />
+            <div className={cx('bar-box')}>
+                <ReactNavbar {...options} />
+            </div>
             <div className={cx('logo')}>
                 <Link to="/">
                     <img className={cx('logo-img')} src={logo} alt="logo" />

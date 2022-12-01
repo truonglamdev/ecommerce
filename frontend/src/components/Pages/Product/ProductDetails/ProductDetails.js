@@ -71,7 +71,12 @@ function ProductDetails() {
                                 <div className={cx('product-status')}>
                                     <div className={cx('product-quantity')}>
                                         <button className={cx('quantity-btn')}>-</button>
-                                        <input type="number" className={cx('quantity-input')} value={1} />
+                                        <input
+                                            type="number"
+                                            className={cx('quantity-input')}
+                                            value={1}
+                                            onChange={() => 1}
+                                        />
                                         <button className={cx('quantity-btn')}>+</button>
                                     </div>
                                     <button className={cx('add-to-cart-btn', 'primary-btn')}>Add to cart</button>

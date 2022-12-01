@@ -1,0 +1,110 @@
+@import '../../sass/mixin';
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+
+    @include mobile {
+        margin-top: 70px;
+        flex-direction: column;
+    }
+}
+
+.content-left {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 46%;
+}
+
+.title {
+    font-size: 2rem;
+    font-family: 'Roboto';
+    font-weight: 600;
+    color: #999;
+}
+
+.avatar {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px 0;
+}
+
+.edit-btn {
+    width: 32%;
+    padding: 8px 8px;
+    background-color: var(--primary-color);
+    color: #333;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.4s all;
+
+    @include mobile {
+        width: 140px;
+    }
+
+    &:hover {
+        background-color: var(--primary-color-hover);
+        opacity: 0.8;
+    }
+}
+
+.content-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 50%;
+
+    @include mobile {
+        width: 100%;
+        justify-content: center;
+        margin-left: 26%;
+    }
+}
+
+.group {
+    margin: 18px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-family: 'Roboto';
+    color: #333;
+}
+
+.name {
+    margin-top: 6px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #999;
+}
+
+.change-password,
+.order-btn {
+    width: 40%;
+    padding: 8px 8px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.4s all;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    margin-top: 18px;
+}

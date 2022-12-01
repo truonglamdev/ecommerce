@@ -45,13 +45,13 @@ function Products() {
             dispatch(clearErrors());
         }
         dispatch(getProducts(keyword, currentPage, price, category, ratings));
+
     }, [dispatch, alert, error, keyword, currentPage, price, category, ratings]);
 
-    console.log(products.length, resultsPerPage);
     return (
         <>
             <h2 className={cx('product-header')}>Products</h2>
-            <MetaData title="PRODUCTS -- ECOMMERCE" />
+            {/* <MetaData title="PRODUCTS -- ECOMMERCE" /> */}
             {loading ? (
                 <Loader />
             ) : (

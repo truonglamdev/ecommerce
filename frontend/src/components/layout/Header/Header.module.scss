@@ -19,13 +19,16 @@
     background-color: rgba(248, 230, 230, 0.874);
 }
 
+.bar-box {
+    z-index: 20;
+}
 
 .logo {
     width: 220px;
     height: 100%;
     position: absolute;
     top: 0;
-    left:  50%;
+    left: 50%;
     transform: translateX(-50%);
 
     @include tablet {
@@ -34,6 +37,7 @@
 
     @include mobile {
         width: 150px;
+        display: none;
     }
 }
 
@@ -49,7 +53,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 38px;
+    right: 120px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -76,4 +80,30 @@
 
 .icon + .icon {
     margin-left: 16px;
+}
+
+//User options styles
+.speed-dial {
+    position: fixed;
+    right: 34px;
+    top: calc(var(--height-header-pc) / 2 - 25px);
+
+    @include tablet {
+        top: calc(var(--height-header-tablet) / 2 - 25px);
+    }
+    @include mobile {
+        top: calc(var(--height-header-mobile) / 2 - 28px);
+    }
+}
+
+.speed-dial-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    object-fit: cover;
+
+    @include mobile {
+        width: 44px;
+        height: 44px;
+    }
 }

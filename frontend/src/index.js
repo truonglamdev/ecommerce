@@ -7,13 +7,13 @@ import store from '~/store';
 import AlertProvider from '~/Provider/AlertProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <AlertProvider>
-                <GlobalStyles>
-                    <App />
-                </GlobalStyles>
-            </AlertProvider>
-        </Provider>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <AlertProvider>
+            <GlobalStyles>
+                {/* <React.StrictMode> */}
+                <App />
+                {/* </React.StrictMode> */}
+            </GlobalStyles>
+        </AlertProvider>
+    </Provider>,
 );

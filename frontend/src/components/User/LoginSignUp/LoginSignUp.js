@@ -40,7 +40,7 @@ function LoginSignUp() {
         e.preventDefault();
         dispatch(login(loginEmail, loginPassword));
     };
-    
+
     const handleSubmitRegister = (e) => {
         e.preventDefault();
         const myForm = new FormData();
@@ -84,7 +84,7 @@ function LoginSignUp() {
         }
 
         if (isAuthenticated) {
-            history('/acount');
+            history('/account');
         }
     }, [error, dispatch, alert, isAuthenticated, history]);
 

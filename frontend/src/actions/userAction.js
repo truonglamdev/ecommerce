@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
     LOGIN_FAIL,
     LOGIN_REQUEST,
@@ -8,6 +9,22 @@ import {
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAIL,
+    LOGOUT_FAIL,
+    LOGOUT_SUCCESS,
+    UPDATE_PROFILE_REQUEST,
+    UPDATE_PROFILE_SUCCESS,
+    UPDATE_PROFILE_RESET,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PROFILE_FAIL,
+    UPDATE_PASSWORD_FAIL,
+    UPDATE_PASSWORD_RESET,
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAIL,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAIL,
 } from '~/constants/userConstants';
 import * as request from '~/utils/httpRequest';
 
@@ -17,11 +34,20 @@ const login = (email, password) => async (dispatch) => {
         const res = await request.post(
             '/login',
             { email, password },
-            { headers: { 'Content-Type': 'application/json' } },
+            {
+                headers: { 'Content-Type': 'application/json' },
+            },
         );
+
+        if (res && res.token) {
+            Cookies.set('token', res.token, {
+                httpOnly: false,
+                secure: false,
+            });
+        }
+
         dispatch({ type: LOGIN_SUCCESS, payload: res.user });
     } catch (error) {
-        console.log(error);
         dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
     }
 };
@@ -30,11 +56,12 @@ const login = (email, password) => async (dispatch) => {
 const register = (userData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_USER_SUCCESS });
-        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-        const res = await request.post('/auth/register', userData, config);
+
+        const res = await request.post('/auth/register', userData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
         dispatch({ type: REGISTER_USER_SUCCESS, payload: res.user });
     } catch (error) {
-        console.log(error);
         dispatch({ type: REGISTER_USER_FAIL, payload: error.response.data.message });
     }
 };
@@ -44,17 +71,112 @@ const register = (userData) => async (dispatch) => {
 const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST });
-        const res = await request.get('/auth/me');
+        const token = Cookies.get('token');
+
+        const res = await request.get('/auth/me', {
+            params: { token: token ? token : '' },
+        });
         dispatch({ type: LOAD_USER_SUCCESS, payload: res.user });
     } catch (error) {
-        console.log(error);
         dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
     }
 };
 
+//logout
+
+const logout = () => async (dispatch) => {
+    try {
+        await request.post('/auth/logout');
+        await Cookies.remove('token');
+        dispatch({ type: LOGOUT_SUCCESS });
+    } catch (error) {
+        dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+    }
+};
+
+//update profile
+const updateProfile = (userData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PROFILE_REQUEST });
+        const token = await Cookies.get('token');
+        const res = await request.put(
+            '/auth/me/update',
+            userData,
+            { params: { token: token ? token : '' } },
+            {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            },
+        );
+        dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: res.success });
+    } catch (error) {
+        dispatch({ type: UPDATE_PROFILE_FAIL, payload: error.response.data.message });
+    }
+};
+
+//update password
+const updatePassword = (passwords) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PASSWORD_REQUEST });
+        const token = await Cookies.get('token');
+        const res = await request.put(
+            '/auth/password/update',
+            passwords,
+            { params: { token: token ? token : '' } },
+            {
+                headers: { 'Content-Type': 'application/json' },
+            },
+        );
+        dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: res.success });
+    } catch (error) {
+        dispatch({ type: UPDATE_PASSWORD_FAIL, payload: error.response.data.message });
+    }
+};
+
+//forgot password
+const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch({ type: FORGOT_PASSWORD_REQUEST });
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        const res = await request.post('/password/forgot', email, config);
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.message });
+    } catch (error) {
+        dispatch({ type: FORGOT_PASSWORD_FAIL, payload: error.response.data.message });
+    }
+};
+
+//reset password
+const resetPassword = (token, passwords) => async (dispatch) => {
+    try {
+        dispatch({ type: RESET_PASSWORD_REQUEST });
+        const config = { headers: { 'Content-Type': 'application/json' } };
+        const res = await request.put(`/password/reset/${token}`, passwords, '', config);
+        dispatch({ type: RESET_PASSWORD_SUCCESS, payload: res.success });
+    } catch (error) {
+        dispatch({ type: RESET_PASSWORD_FAIL, payload: error.response.data.message });
+    }
+};
 
 // Clearing Errors
 const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
-export { login, clearErrors, register, loadUser };
+
+const updateProfileReset = () => async (dispatch) => {
+    dispatch({ type: UPDATE_PROFILE_RESET });
+};
+const updatePasswordReset = () => async (dispatch) => {
+    dispatch({ type: UPDATE_PASSWORD_RESET });
+};
+export {
+    login,
+    clearErrors,
+    register,
+    loadUser,
+    logout,
+    updateProfile,
+    updateProfileReset,
+    updatePassword,
+    updatePasswordReset,
+    forgotPassword,
+    resetPassword,
+};

@@ -25,7 +25,6 @@ const register = catchAsyncErrors(async (req, res) => {
         },
     });
 
-    const token = user.getJWTToken();
     sendToken(201, user, res);
 });
 
@@ -41,6 +40,7 @@ const login = catchAsyncErrors(async (req, res, next) => {
     }
 
     const isPasswordMatched = await user.comparePassword(password);
+
     if (!isPasswordMatched) {
         return next(new ErrorHandler('Invalid Email Or Password', 401));
     }
@@ -74,7 +74,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     const resetToken = user.getResetPasswordToken();
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
     const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
     try {
@@ -163,6 +163,23 @@ const updateUser = catchAsyncErrors(async (req, res, next) => {
         email: req.body.email,
     };
 
+    if (req.body.avatar !== '') {
+        const user = await User.findById(req.user.id);
+        const imageId = user.avatar.public_id;
+        await cloudinary.v2.uploader.destroy(imageId);
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: 'scale',
+        });
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+        };
+    }
+
     const newUser = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
@@ -171,7 +188,7 @@ const updateUser = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        user: newUser,
+        // user: newUser,
     });
 });
 

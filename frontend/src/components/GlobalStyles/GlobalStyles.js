@@ -11,9 +11,9 @@ function GlobalStyles({ children }) {
                 families: ['Roboto', 'Droid Sans', 'Chilanka'],
             },
         });
-
         store.dispatch(loadUser());
     }, []);
+    
     return children;
 }
 

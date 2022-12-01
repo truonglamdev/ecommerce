@@ -30,7 +30,7 @@ function Home() {
                 <Loader />
             ) : (
                 <div className={cx('wrapper')}>
-                    <MetaData title="PRODUCTS -- ECOMMERCE"/>
+                    {/* <MetaData title="PRODUCTS -- ECOMMERCE"/> */}
                     <div className={cx('banner')}>
                         <div className={cx('title')}>Welcome to Ecommerce</div>
                         <h1 className={cx('content')}>FIND AMAZING PRODUCTS BELOW</h1>
