@@ -27,7 +27,7 @@ const createOrder = catchAsyncErrors(async (req, res, next) => {
 });
 
 //Get my order
-const getMyOrder = catchAsyncErrors(async (req, res, next) => {
+const getMyOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find({ user: req.user._id });
 
     res.status(200).json({
@@ -116,4 +116,4 @@ const deleteOrder = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
-module.exports = { createOrder, getMyOrder, getSingleOrder, getAllOrders, updateStatusOrder, deleteOrder };
+module.exports = { createOrder, getMyOrders, getSingleOrder, getAllOrders, updateStatusOrder, deleteOrder };

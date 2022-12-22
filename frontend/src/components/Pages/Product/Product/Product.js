@@ -13,7 +13,6 @@ import styles from './Product.module.scss';
 import { getProducts, clearErrors } from '~/actions/productAction';
 import ProductCard from '~/components/ProductCard';
 import Loader from '~/components/layout/Loader';
-import MetaData from '../../MetaData';
 
 const cx = classNames.bind(styles);
 
@@ -51,7 +50,6 @@ function Products() {
     return (
         <>
             <h2 className={cx('product-header')}>Products</h2>
-            {/* <MetaData title="PRODUCTS -- ECOMMERCE" /> */}
             {loading ? (
                 <Loader />
             ) : (

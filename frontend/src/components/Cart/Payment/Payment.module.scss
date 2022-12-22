@@ -1,0 +1,116 @@
+@import '../../sass/mixin';
+
+.wrapper {
+    width: 100%;
+    // height: 90vh;
+    margin-top: var(--height-header-pc);
+}
+
+.check-out {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.container {
+    display: grid;
+    place-items: center;
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+.payment-form {
+    height: 340px;
+    width: 320px;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+    border: 1px solid #ccc;
+
+    @include mobile {
+        height: 300px;
+        width: 280px;
+        padding: 8px 14px;
+        margin-bottom: 32px;
+    }
+}
+
+.title {
+    width: 50%;
+    padding: 10px 0;
+    margin: auto;
+    text-align: center;
+    font-size: 1.8rem;
+    font-family: 'Roboto';
+    font-weight: 400;
+    color: #555;
+    border-bottom: 2px solid #888;
+
+    @include mobile {
+        font-size: 1.6rem;
+    }
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin: 26px 0;
+
+    @include mobile {
+        margin: 18px 0;
+    }
+}
+
+.payment-input {
+    padding: 10px 40px;
+    padding-right: 10px;
+    width: 100%;
+    box-shadow: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1.2rem;
+
+    @include mobile {
+        padding: 8px 32px;
+    }
+}
+
+.icon {
+    position: absolute;
+    transform: translateX(10px);
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, 0.623);
+
+    @include mobile {
+        font-size: 1.2rem;
+    }
+}
+
+
+.submit-btn {
+    width: 100%;
+    outline: none;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 0;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    font-weight: 300;
+    font-family: 'Roboto';
+    transition: 0.5s all;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--primary-color-hover);
+    }
+
+    @include mobile {
+        margin-top: 12px;
+        padding: 8px 0;
+    }
+}

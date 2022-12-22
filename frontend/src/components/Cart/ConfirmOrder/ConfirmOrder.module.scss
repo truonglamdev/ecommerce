@@ -1,0 +1,190 @@
+@import '../../sass/mixin';
+.wrapper {
+    width: 100%;
+    margin-top: var(--height-header-pc);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
+    @include tablet {
+        height: 100%;
+        margin-top: var(--height-header-tablet);
+    }
+
+    @include mobile {
+        height: 100%;
+    }
+}
+
+.checkOut-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 6fr 3fr;
+    margin: 20px 60px;
+
+    @include tablet {
+        margin: 12px 14px;
+    }
+
+    @include mobile {
+        grid-template-columns: 1fr;
+        height: unset;
+
+        margin: 10px 12px;
+    }
+}
+
+.content-left {
+    border-right: 1px solid #ddd;
+
+    @include mobile {
+        border-right: none;
+    }
+}
+
+.shipping-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    font-family: 'Roboto';
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.shipping-info-confirm > div {
+    display: flex;
+    margin-top: 20px;
+    p {
+        color: black;
+        font-weight: 600;
+        margin-right: 4px;
+    }
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-family: 'Roboto';
+    color: #666;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-items-confirm {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    overflow-y: auto;
+
+    @include mobile {
+        height: unset;
+    }
+}
+
+.product {
+    display: flex;
+}
+
+.product {
+    margin-bottom: 16px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.product-name {
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: 'Roboto';
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1rem;
+    color: #444;
+}
+.product-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.content-right {
+    margin-left: 30px;
+
+    @include tablet {
+        margin-left: 16px;
+    }
+
+    @include mobile {
+        margin-left: 0;
+    }
+}
+
+.summery-box {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-family: 'Roboto';
+    font-weight: 500;
+    color: #666;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+        margin: 14px 0;
+
+        p {
+            font-weight: 600;
+            margin-right: 4px;
+            color: black;
+        }
+    }
+}
+
+.order-summary-total {
+    display: flex;
+    font: 400 1.2rem 'Roboto';
+    justify-content: space-between;
+    border-top: 1px solid rgba(0, 0, 0, 0.363);
+    padding: 20px 0;
+}
+
+.proceed-btn {
+    width: 100%;
+    padding: 12px;
+    margin: auto;
+    font: 400 1.2rem 'Roboto';
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+
+    @include mobile {
+        padding: 8px;
+        font-size: 1rem;
+    }
+    &:hover {
+        opacity: 0.8;
+    }
+}

@@ -1,0 +1,211 @@
+@import '../sass/mixin';
+.wrapper {
+    width: 100%;
+    // height: 100vh;
+    margin-bottom: 20px;
+    margin-top: var(--height-header-pc);
+
+    @include tablet {
+        margin-top: var(--height-header-tablet);
+    }
+
+    @include mobile {
+        margin-top: var(--height-header-mobile);
+    }
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+}
+
+.empty-cart-img {
+    width: 40%;
+    margin: 0 auto;
+}
+.views-btn {
+    height: 28px;
+    width: 140px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    margin: 0 auto;
+    font-size: 1.4rem;
+    text-decoration: none;
+    font-family: 'Roboto';
+    font-weight: 500;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #333;
+
+    @include mobile {
+        width: 100px;
+        font-size: 1rem;
+    }
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.header {
+    width: 80%;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    margin: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: 'Roboto';
+    font-weight: 500;
+
+    @include tablet {
+        width: 90%;
+        border-radius: 0;
+    }
+
+    @include mobile {
+        width: 100%;
+        border-radius: 0;
+        grid-template-columns: 3fr 1fr 1fr;
+    }
+
+    p {
+        text-align: start;
+    }
+
+    p:last-child {
+        text-align: end;
+    }
+}
+
+.cart-box {
+    width: 80%;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    margin: auto;
+    margin-top: 16px;
+
+    @include tablet {
+        width: 90%;
+        border-radius: 0;
+    }
+
+    @include mobile {
+        width: 100%;
+        border-radius: 0;
+        grid-template-columns: 3fr 1fr 1fr;
+    }
+}
+
+.cart-input {
+    margin-right: 10px;
+    display: flex;
+}
+
+.quantity-btn {
+    width: 28px;
+    height: 28px;
+    padding: 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 1px;
+    background-color: rgba(0, 0, 0, 0.616);
+    color: white;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    @include mobile {
+        height: 20px;
+    }
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.quantity-input {
+    border: none;
+    // padding: 8px;
+    height: 28px;
+    width: 50px;
+    text-align: center;
+    outline: none;
+    font: 500 1.2rem 'Roboto';
+    color: rgba(0, 0, 0, 0.74);
+
+    @include mobile {
+        height: 20px;
+        width: 40px;
+    }
+}
+
+.total-price {
+    text-align: end;
+    color: #333;
+    margin-right: 10px;
+    font: 400 1.8rem 'Roboto';
+
+    @include mobile {
+        font-size: 1.4rem;
+    }
+}
+
+.cart-gross-profit {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    margin: auto;
+
+    @include mobile {
+        grid-template-columns: 0fr 2fr;
+    }
+}
+
+.gross-profit-box {
+    border-top: 3px solid tomato;
+    box-sizing: border-box;
+    margin: 10px 120px 10px 6px;
+    padding: 2vmax 0;
+    font: 400 1.6rem 'Roboto';
+    display: flex;
+    justify-content: space-between;
+
+    @include mobile {
+        margin-right: 12px;
+        font-size: 1rem;
+    }
+}
+
+.check-out {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.check-out-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    width: 50%;
+    font: 300 1.1rem 'Roboto';
+    margin-right: 130px;
+    cursor: pointer;
+    border-radius: 30px;
+
+    @include mobile {
+        margin-right: 20px;
+    }
+    &:hover {
+        background-color: var(--primary-color-hover);
+    }
+}

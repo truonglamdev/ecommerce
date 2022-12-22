@@ -10,7 +10,6 @@ import styles from './Home.module.scss';
 import ProductCard from '~/components/ProductCard';
 import { getProducts } from '~/actions/productAction';
 import Loader from '~/components/layout/Loader';
-import MetaData from '../MetaData';
 const cx = classNames.bind(styles);
 function Home() {
     const alert = useAlert();

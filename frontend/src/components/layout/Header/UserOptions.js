@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab';
 import { useAlert } from 'react-alert';
@@ -16,6 +16,7 @@ import Profile from '~/images/Profile.png';
 
 const cx = classNames.bind(styles);
 function UserOptions({ user }) {
+    const { cartItems } = useSelector((state) => state.cart);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const alert = useAlert();
@@ -23,7 +24,11 @@ function UserOptions({ user }) {
     const options = [
         { icon: <ListAltIcon />, title: 'Orders', func: orders },
         { icon: <PersonIcon />, title: 'Profile', func: account },
-        { icon: <ShoppingCartIcon />, title: 'Cart', func: cart },
+        {
+            icon: <ShoppingCartIcon style={{ color: cartItems.length > 0 ? 'tomato' : 'unset' }} />,
+            title: `Cart(${cartItems.length})`,
+            func: cart,
+        },
         { icon: <ExitToAppIcon />, title: 'Logout', func: logoutUser },
     ];
     function orders() {

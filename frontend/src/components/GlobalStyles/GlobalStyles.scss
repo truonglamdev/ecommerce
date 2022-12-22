@@ -25,6 +25,14 @@ body {
     text-rendering: optimizeSpeed;
 }
 
+.green-color {
+    color: rgb(81, 243, 81);
+}
+
+.red-color {
+    color: var(--primary-color);
+}
+
 .primary-btn {
     min-width: 120px;
     padding: 8px 10px;
@@ -102,4 +110,37 @@ input[type='number'] {
 
 .pageLinkActive {
     color: white;
+}
+
+.MuiStepConnector-line {
+    display: none !important;
+}
+
+.MuiStepConnector-root {
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.349);
+}
+
+.MuiSvgIcon-root {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.MuiStepConnector-active,
+.MuiStepConnector-completed {
+    background-color: var(--primary-color);
+}
+
+.MuiDataGrid-columnHeader {
+    background-color: tomato;
+    padding: 1vmax !important;
+}
+
+.MuiDataGrid-columnHeader div {
+    color: rgb(255, 255, 255);
+    font: 500 1.1vmax 'Roboto' !important;
+}
+
+.MuiDataGrid-iconSeparator {
+    display: none !important;
 }

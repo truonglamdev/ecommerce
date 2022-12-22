@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
@@ -15,8 +15,9 @@ import Loader from '~/components/layout/Loader';
 const cx = classNames.bind(styles);
 function LoginSignUp() {
     const dispatch = useDispatch();
+    const location = useLocation();
     const alert = useAlert();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const { loading, error, isAuthenticated } = useSelector((state) => state.user);
     const [isLogin, setIsLogin] = useState('login');
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -77,6 +78,7 @@ function LoginSignUp() {
         setIsShowPassword((prev) => !prev);
     };
 
+    const redirect = location.search ? location.search.split('=')[1] : '/account';
     useEffect(() => {
         if (error) {
             alert.error(error);
@@ -84,9 +86,9 @@ function LoginSignUp() {
         }
 
         if (isAuthenticated) {
-            history('/account');
+            navigate(redirect);
         }
-    }, [error, dispatch, alert, isAuthenticated, history]);
+    }, [error, dispatch, alert, isAuthenticated, navigate, redirect]);
 
     return (
         <>

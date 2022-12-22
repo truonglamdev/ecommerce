@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
@@ -9,12 +9,11 @@ import styles from './ProductDetails.module.scss';
 import ReviewCard from '~/components/ReviewCard';
 import Loader from '~/components/layout/Loader';
 import { clearErrors, getDetailProduct } from '~/actions/productAction';
+import { addItemsToCart } from '~/actions/cartAction';
+import { useAlert } from 'react-alert';
 
 const cx = classNames.bind(styles);
 function ProductDetails() {
-    const params = useParams();
-    const dispatch = useDispatch();
-    const { product, loading, error } = useSelector((state) => state.productDetails);
     const options = {
         value: 4,
         activeColor: '#eb4034',
@@ -23,13 +22,34 @@ function ProductDetails() {
         size: window.innerWidth > 600 ? 20 : 16,
     };
 
+    const params = useParams();
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    const [quantity, setQuantity] = useState(1);
+    const { product, loading, error } = useSelector((state) => state.productDetails);
+
+    const handleIncreaseQuantity = () => {
+        if (product.Stock <= quantity) return;
+        setQuantity((prev) => prev + 1);
+    };
+    const handleDecreaseQuantity = () => {
+        if (1 >= quantity) return;
+        setQuantity((prev) => prev - 1);
+    };
+
+    const handleAddProductToCart = () => {
+        const productId = params.id;
+        dispatch(addItemsToCart(productId, quantity));
+        alert.success('Items added successfully');
+    };
     useEffect(() => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
         dispatch(getDetailProduct(params.id));
-    }, [dispatch, params, error]);
+    }, [dispatch, params, error, alert]);
 
     return (
         <>
@@ -70,16 +90,25 @@ function ProductDetails() {
                                 <span className={cx('product-price')}>${product.price}</span>
                                 <div className={cx('product-status')}>
                                     <div className={cx('product-quantity')}>
-                                        <button className={cx('quantity-btn')}>-</button>
+                                        <button className={cx('quantity-btn')} onClick={handleDecreaseQuantity}>
+                                            -
+                                        </button>
                                         <input
                                             type="number"
                                             className={cx('quantity-input')}
-                                            value={1}
-                                            onChange={() => 1}
+                                            value={quantity}
+                                            readOnly
                                         />
-                                        <button className={cx('quantity-btn')}>+</button>
+                                        <button className={cx('quantity-btn')} onClick={handleIncreaseQuantity}>
+                                            +
+                                        </button>
                                     </div>
-                                    <button className={cx('add-to-cart-btn', 'primary-btn')}>Add to cart</button>
+                                    <button
+                                        className={cx('add-to-cart-btn', 'primary-btn')}
+                                        onClick={handleAddProductToCart}
+                                    >
+                                        Add to cart
+                                    </button>
                                 </div>
                                 <span className={cx('product-stock')}>
                                     Status :<span>InStock</span>
@@ -97,7 +126,7 @@ function ProductDetails() {
                     <h2 className={cx('heading-review')}>Reviews</h2>
                     <div className={cx('reviews-container')}>
                         {product.reviews && product.reviews ? (
-                            product.reviews.map((review) => <ReviewCard data={review} />)
+                            product.reviews.map((review, index) => <ReviewCard data={review} key={index} />)
                         ) : (
                             <div className={cx('no-review')}>No review</div>
                         )}
