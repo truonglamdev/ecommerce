@@ -1,14 +1,20 @@
 @import '../../sass/mixin';
-// .wrapper {
-//     // margin-top: var(--height-header-pc);
-// }
+.wrapper {
+    margin-top: var(--height-header-pc);
+
+    @include tablet {
+        margin-top: var(--height-header-tablet);
+    }
+
+    @include mobile {
+        margin-top: var(--height-header-mobile);
+    }
+}
 
 .banner {
-    background-image: url(../../../images/cover.jfif);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
+    // background-image: url(../../../images/bg-image.webp);
+
+    // height: 100vh;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -18,7 +24,7 @@
 
     .title {
         font-size: 3rem;
-        font-family: 'Roboto';
+        font-family: 'cursive';
         font-weight: 600;
         margin: 30px;
 
@@ -26,59 +32,95 @@
             font-size: 2.6rem;
         }
     }
-
-    .content {
-        font-size: 1.4rem;
-        font-family: 'Lucida Sans';
-        font-weight: 600;
-        @include mobile {
-            font-size: 1.2rem;
-        }
-    }
-
-    .scroll-btn {
-        width: 94px;
-        padding: 10px;
-        margin-bottom: 50px;
-        margin-top: 10px;
-        background-color: white;
-        border: 1px solid white;
-        border-radius: 6px;
-        font-size: 1.2rem;
-        font-family: 'Roboto';
-        font-weight: 400;
-        transition: all 0.5s;
-        cursor: pointer;
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0);
-            color: white;
-        }
-    }
 }
 
-.banner::after {
-    content: '';
+.banner-image {
     width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    position: absolute;
-    top: 0%;
-    left: 0;
-    clip-path: polygon(100% 68%, 0 100%, 100% 100%);
-    max-width: 100%;
-    z-index: 0;
+    height: 100vh;
+    object-fit: cover;
+
+    @include tablet {
+        height: 100%;
+    }
 }
+
+// .banner::after {
+//     content: '';
+//     width: 100%;
+//     height: 100%;
+//     background-color: #ffffff;
+//     position: absolute;
+//     top: 0%;
+//     left: 0;
+//     clip-path: polygon(100% 68%, 0 100%, 100% 100%);
+//     max-width: 100%;
+//     z-index: 0;
+// }
 
 .home-header {
     text-align: center;
-    font-family: Roboto;
+    font-family: 'cursive';
     font-size: 2rem;
     border-bottom: 1px solid rgba(21, 21, 21, 0.5);
     width: 200px;
     padding: 14px;
     margin: 50px auto;
     color: rgb(0, 0, 0, 0.7);
+}
+
+.title-box {
+    position: absolute;
+    border-radius: 6px;
+    border: 1px solid #999;
+    animation: slide 0.8s ease-in;
+    transform: translateY(-50%);
+    background-color: rgba(28, 28, 28, 0.349);
+
+    @include mobile {
+        display: none;
+    }
+}
+
+@keyframes slide {
+    0% {
+        top: 10%;
+        opacity: 0.6;
+        background-color: pink;
+    }
+    100% {
+        top: 40%;
+        opacity: 1;
+        background-color: rgba(28, 28, 28, 0.349);
+    }
+}
+
+.content {
+    font-size: 1.4rem;
+    font-family: 'cursive';
+    font-weight: 600;
+    @include mobile {
+        font-size: 1.2rem;
+    }
+}
+
+.scroll-btn {
+    width: 94px;
+    padding: 10px;
+    margin-bottom: 50px;
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-family: 'cursive';
+    font-weight: 400;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0);
+        color: white;
+    }
 }
 
 .product-container {

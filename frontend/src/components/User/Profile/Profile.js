@@ -26,7 +26,7 @@ function Profile() {
                     <div className={cx('content-left')}>
                         <h2 className={cx('title')}>My Profile</h2>
                         <img
-                            src={user.avatar.url ? user.avatar.url : ProfileImg}
+                            src={user && user.avatar && user.avatar.url ? user.avatar.url : ProfileImg}
                             className={cx('avatar')}
                             alt="Avatar"
                         />
@@ -37,15 +37,15 @@ function Profile() {
                     <div className={cx('content-right')}>
                         <div className={cx('group')}>
                             <h4 className={cx('label')}>Full Name</h4>
-                            <p className={cx('name')}>{user.name}</p>
+                            <p className={cx('name')}>{user && user.name}</p>
                         </div>
                         <div className={cx('group')}>
                             <h4 className={cx('label')}>Email</h4>
-                            <p className={cx('name')}>{user.email}</p>
+                            <p className={cx('name')}>{user && user.email}</p>
                         </div>
                         <div className={cx('group')}>
                             <h4 className={cx('label')}>Joined On</h4>
-                            <p className={cx('name')}>{String(user.createdAt).substr(0, 10)}</p>
+                            <p className={cx('name')}>{String(user && user.createdAt).substr(0, 10)}</p>
                         </div>
 
                         <div className={cx('group')}>

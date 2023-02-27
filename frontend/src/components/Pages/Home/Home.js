@@ -10,6 +10,7 @@ import styles from './Home.module.scss';
 import ProductCard from '~/components/ProductCard';
 import { getProducts } from '~/actions/productAction';
 import Loader from '~/components/layout/Loader';
+import banner from '~/images/bg-image.webp';
 const cx = classNames.bind(styles);
 function Home() {
     const alert = useAlert();
@@ -31,16 +32,21 @@ function Home() {
                 <div className={cx('wrapper')}>
                     {/* <MetaData title="PRODUCTS -- ECOMMERCE"/> */}
                     <div className={cx('banner')}>
-                        <div className={cx('title')}>Welcome to Ecommerce</div>
-                        <h1 className={cx('content')}>FIND AMAZING PRODUCTS BELOW</h1>
-                        <a href="#container">
-                            <button className={cx('scroll-btn')}>
-                                Scroll <FontAwesomeIcon icon={faComputerMouse} />
-                            </button>
-                        </a>
+                        <img src={banner} alt="" className={cx('banner-image')} />
+                        <div className={cx('title-box')}>
+                            <div className={cx('title')}>Welcome to Ecommerce</div>
+                            <h1 className={cx('content')}>FIND AMAZING PRODUCTS BELOW</h1>
+                            <a href="#container">
+                                <button className={cx('scroll-btn')}>
+                                    Scroll <FontAwesomeIcon icon={faComputerMouse} />
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                    <h2 className={cx('home-header')}>Featured Products</h2>
-                    <div className={cx('product-container')} id="container">
+                    <h2 className={cx('home-header')} id="container">
+                        Featured Products
+                    </h2>
+                    <div className={cx('product-container')}>
                         {products && products.map((product) => <ProductCard key={product._id} product={product} />)}
                     </div>
                 </div>

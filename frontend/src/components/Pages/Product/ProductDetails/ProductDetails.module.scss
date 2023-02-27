@@ -1,6 +1,5 @@
 @import '../../../sass/mixin';
 
-
 .container {
     display: flex;
     background-color: rgb(252, 238, 238);
@@ -10,11 +9,11 @@
     box-sizing: border-box;
 
     @include tablet {
-        padding: 54px;
+        padding: 58px 26px;
     }
 
     @include mobile {
-        padding: 40px;
+        padding: 52px 14px;
     }
 }
 
@@ -29,18 +28,21 @@
 
 .product-slide {
     width: 340px;
+    height: 340px;
     padding: 20px;
     box-sizing: border-box;
     z-index: 0;
 
     @include tablet {
-        width: 280px;
+        width: 300px;
+        height: 300px;
         padding: 14px;
     }
 
     @include mobile {
-        width: 250px;
-        padding: 10px;
+        width: 260px;
+        height: 260px;
+        padding: 8px;
     }
 }
 
@@ -292,13 +294,42 @@
     margin: 10px 0;
 }
 
-
 .no-review {
     text-align: center;
     margin: 0 auto;
     padding: 20px;
     font-size: 1.6rem;
     font-weight: 400;
-    font-family: "Roboto";
+    font-family: 'Roboto';
     color: #666;
+}
+
+.review-title {
+    color: var(--primary-color);
+    padding: 6px 30px !important;
+    margin-top: 20px !important;
+    text-align: center;
+
+    h2 {
+        font-size: 1.5rem;
+        font-family: 500;
+        font-family: 'Roboto';
+    }
+}
+
+.review-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    color: #333;
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+.review-action {
+    padding: 20px !important;
 }

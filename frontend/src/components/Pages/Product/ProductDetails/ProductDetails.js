@@ -2,24 +2,26 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
-import ReactStars from 'react-rating-stars-component';
 
 import classNames from 'classnames/bind';
 import styles from './ProductDetails.module.scss';
 import ReviewCard from '~/components/ReviewCard';
 import Loader from '~/components/layout/Loader';
-import { clearErrors, getDetailProduct } from '~/actions/productAction';
+import { clearErrors, getDetailProduct, newReview, resetReview } from '~/actions/productAction';
 import { addItemsToCart } from '~/actions/cartAction';
 import { useAlert } from 'react-alert';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@material-ui/core';
+import { Rating } from '@mui/material';
 
 const cx = classNames.bind(styles);
 function ProductDetails() {
+    const { product, loading, error } = useSelector((state) => state.productDetails);
+    const { success, error: reviewError, loading: reviewLoading } = useSelector((state) => state.newReview);
     const options = {
-        value: 4,
-        activeColor: '#eb4034',
+        value: product.ratings,
         readOnly: true,
         precision: 0.5,
-        size: window.innerWidth > 600 ? 20 : 16,
+        size: 'small',
     };
 
     const params = useParams();
@@ -27,7 +29,9 @@ function ProductDetails() {
     const alert = useAlert();
 
     const [quantity, setQuantity] = useState(1);
-    const { product, loading, error } = useSelector((state) => state.productDetails);
+    const [open, setOpen] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
 
     const handleIncreaseQuantity = () => {
         if (product.Stock <= quantity) return;
@@ -43,17 +47,41 @@ function ProductDetails() {
         dispatch(addItemsToCart(productId, quantity));
         alert.success('Items added successfully');
     };
+
+    const handleSubmitReview = () => {
+        const myForm = new FormData();
+
+        myForm.set('rating', rating);
+        myForm.set('comment', comment);
+        myForm.set('productId', params.id);
+        dispatch(newReview(myForm));
+        setOpen(false);
+    };
+
+    const handleOpenToggle = () => {
+        setOpen((prev) => !prev);
+    };
+
     useEffect(() => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
+        if (reviewError) {
+            alert.error(reviewError);
+            dispatch(clearErrors);
+        }
+
+        if (success) {
+            alert.success('Review Submitted Successfully');
+            dispatch(resetReview());
+        }
         dispatch(getDetailProduct(params.id));
-    }, [dispatch, params, error, alert]);
+    }, [dispatch, params, error, alert, reviewError, success]);
 
     return (
         <>
-            {loading ? (
+            {loading && reviewLoading ? (
                 <Loader />
             ) : (
                 <div className={cx('wrapper')}>
@@ -67,7 +95,7 @@ function ProductDetails() {
                                                 className={cx('slide-image')}
                                                 key={index}
                                                 src={image.url}
-                                                alt={`${index} Slide`}
+                                                alt={`${index} slide`}
                                             />
                                         ))}
                                 </Carousel>
@@ -80,7 +108,7 @@ function ProductDetails() {
                             </div>
                             <div className={cx('product-rating')}>
                                 <div>
-                                    <ReactStars {...options} />
+                                    <Rating {...options}  />
                                 </div>
                                 <span className={cx('quantity-reviews')}>
                                     (<span>{product.numOfReviews}</span> Reviews)
@@ -104,6 +132,7 @@ function ProductDetails() {
                                         </button>
                                     </div>
                                     <button
+                                        disabled={product.Stock < 1 ? true : false}
                                         className={cx('add-to-cart-btn', 'primary-btn')}
                                         onClick={handleAddProductToCart}
                                     >
@@ -119,13 +148,51 @@ function ProductDetails() {
                                 Description : <p>{product.description}</p>
                             </div>
 
-                            <button className={cx('submit-review', 'primary-btn')}>Submit review</button>
+                            <button className={cx('submit-review', 'primary-btn')} onClick={handleOpenToggle}>
+                                Submit review
+                            </button>
                         </div>
                     </div>
 
                     <h2 className={cx('heading-review')}>Reviews</h2>
+
+                    <Dialog aria-labelledby="simple-dialog-title" open={open} onClose={handleOpenToggle}>
+                        <DialogTitle className={cx('review-title')}>Submit Review Product</DialogTitle>
+                        <DialogContent className={cx('review-content')}>
+                            <Rating
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                                size={window.innerWidth > 600 ? 'large' : 'small'}
+                            />
+                            <textarea
+                                className={cx('review-text')}
+                                cols={window.innerWidth > 600 ? 60 : 30}
+                                rows="6"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            ></textarea>
+                        </DialogContent>
+                        <DialogActions className={cx('review-action')}>
+                            <Button
+                                onClick={handleOpenToggle}
+                                color="secondary"
+                                variant="outlined"
+                                size={window.innerWidth > 600 ? 'medium' : 'small'}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                onClick={handleSubmitReview}
+                                color="primary"
+                                variant="outlined"
+                                size={window.innerWidth > 600 ? 'medium' : 'small'}
+                            >
+                                Submit
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     <div className={cx('reviews-container')}>
-                        {product.reviews && product.reviews ? (
+                        {product.reviews && product.reviews[0] ? (
                             product.reviews.map((review, index) => <ReviewCard data={review} key={index} />)
                         ) : (
                             <div className={cx('no-review')}>No review</div>

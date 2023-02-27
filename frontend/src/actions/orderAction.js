@@ -1,5 +1,8 @@
 import Cookies from 'js-cookie';
 import {
+    ALL_ORDERS_FAIL,
+    ALL_ORDERS_REQUEST,
+    ALL_ORDERS_SUCCESS,
     CLEAR_ERRORS,
     CREATE_ORDER_FAIL,
     CREATE_ORDER_REQUEST,
@@ -64,9 +67,21 @@ const getOrderDetails = (id) => async (dispatch) => {
     }
 };
 
+//Get all orders [admin]
+const getAllOrders = () => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_ORDERS_REQUEST });
+        const token = Cookies.get('token');
+        const {data} = await request.get('/admin/orders', { params: { token: token ? token : '' } });
+        dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
+    } catch (error) {
+        dispatch({ type: ALL_ORDERS_FAIL, payload: error.response.data.message });
+    }
+};
+
 // Clearing Errors
 const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
 
-export { createOrder, clearErrors, myOrders, getOrderDetails };
+export { createOrder, clearErrors, myOrders, getOrderDetails, getAllOrders };

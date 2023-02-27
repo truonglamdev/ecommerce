@@ -13,6 +13,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { logout } from '~/actions/userAction';
 import Profile from '~/images/Profile.png';
+import { Dashboard } from '@material-ui/icons';
 
 const cx = classNames.bind(styles);
 function UserOptions({ user }) {
@@ -31,6 +32,19 @@ function UserOptions({ user }) {
         },
         { icon: <ExitToAppIcon />, title: 'Logout', func: logoutUser },
     ];
+
+    if (user && user.role === 'admin') {
+        options.unshift({
+            icon: <Dashboard />,
+            title: 'Dashboard',
+            func: dashboard,
+        });
+    }
+
+    function dashboard() {
+        navigate('/admin/dashboard');
+    }
+
     function orders() {
         navigate('/orders');
     }
@@ -58,7 +72,7 @@ function UserOptions({ user }) {
                 icon={
                     <img
                         className={cx('speed-dial-img')}
-                        src={user.avatar && user.avatar.url ? user.avatar.url : Profile}
+                        src={user && user.avatar && user.avatar.url ? user.avatar.url : Profile}
                         alt="Profile"
                     />
                 }

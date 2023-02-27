@@ -9,6 +9,9 @@ import {
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
+    ALL_ORDERS_SUCCESS,
+    ALL_ORDERS_REQUEST,
+    ALL_ORDERS_FAIL,
 } from '~/constants/orderConstant';
 const newOrderReducer = (state = {}, action) => {
     switch (action.type) {
@@ -91,4 +94,34 @@ const orderDetailsReducer = (state = { order: {} }, action) => {
     }
 };
 
-export { newOrderReducer, myOrdersReducer, orderDetailsReducer };
+//admin reducer
+
+const allOrdersReducer = (state = { orders: [] }, action) => {
+    switch (action.type) {
+        case ALL_ORDERS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ALL_ORDERS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                orders: action.payload,
+            };
+        case ALL_ORDERS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+};
+export { newOrderReducer, myOrdersReducer, orderDetailsReducer, allOrdersReducer };

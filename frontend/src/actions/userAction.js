@@ -25,6 +25,9 @@ import {
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAIL,
+    ALL_USERS_FAIL,
+    ALL_USERS_REQUEST,
+    ALL_USERS_SUCCESS,
 } from '~/constants/userConstants';
 import * as request from '~/utils/httpRequest';
 
@@ -156,6 +159,18 @@ const resetPassword = (token, passwords) => async (dispatch) => {
     }
 };
 
+//get all users [admin]
+const getAllUsers = () => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_USERS_REQUEST });
+        const token = await Cookies.get('token');
+        const res = await request.get('/auth/admin/users', { params: { token: token ? token : '' } });
+        dispatch({ type: ALL_USERS_SUCCESS, payload: res.users });
+    } catch (error) {
+        dispatch({ type: ALL_USERS_FAIL, payload: error.response.data.message });
+    }
+};
+
 // Clearing Errors
 const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
@@ -179,4 +194,5 @@ export {
     updatePasswordReset,
     forgotPassword,
     resetPassword,
+    getAllUsers,
 };

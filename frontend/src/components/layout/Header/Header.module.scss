@@ -16,7 +16,7 @@
         height: var(--height-header-mobile);
     }
     // background-color: rgba(255, 255, 255, 0);
-    background-color: rgba(248, 230, 230, 0.874);
+    background-color: var(--bg-color-header);
 }
 
 .bar-box {
@@ -58,6 +58,10 @@
     align-items: center;
     justify-content: space-between;
     z-index: 10;
+
+    @include mobile {
+        right: 82px;
+    }
 }
 
 .icon {
@@ -86,24 +90,33 @@
 .speed-dial {
     position: fixed;
     right: 34px;
-    top: calc(var(--height-header-pc) / 2 - 25px);
+    top: calc(var(--height-header-pc) / 4);
 
     @include tablet {
-        top: calc(var(--height-header-tablet) / 2 - 25px);
+        top: calc(var(--height-header-tablet) / 4);
+        right: 28px;
     }
+
     @include mobile {
-        top: calc(var(--height-header-mobile) / 2 - 28px);
+        top: calc(var(--height-header-mobile) / 5);
+        right: 20px;
     }
+    z-index: 0;
 }
 
 .speed-dial-img {
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     border-radius: 100%;
     object-fit: cover;
 
+    @include tablet {
+        width: 40px;
+        height: 40px;
+    }
+
     @include mobile {
-        width: 44px;
-        height: 44px;
+        width: 30px;
+        height: 30px;
     }
 }

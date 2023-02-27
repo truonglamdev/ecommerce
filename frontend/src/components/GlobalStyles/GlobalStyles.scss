@@ -19,6 +19,10 @@ html {
 
     --primary-color: #eb4034;
     --primary-color-hover: #d65a51;
+    --bg-color-header: rgba(248, 230, 230, 0.874);
+    --text-color: #273444;
+    --border-color-outline: #273d58;
+    --border-color: #ccc;
 }
 
 body {
@@ -124,6 +128,16 @@ input[type='number'] {
 .MuiSvgIcon-root {
     width: 30px !important;
     height: 30px !important;
+
+    @include tablet {
+        width: 26px !important;
+        height: 26px !important;
+    }
+
+    @include mobile {
+        width: 22px !important;
+        height: 22px !important;
+    }
 }
 
 .MuiStepConnector-active,
@@ -143,4 +157,39 @@ input[type='number'] {
 
 .MuiDataGrid-iconSeparator {
     display: none !important;
+}
+
+.MuiRating-decimal {
+    color: var(--primary-color) !important;
+    // font-size: 1.4rem;
+    .MuiSvgIcon-root {
+        width: 24px !important;
+        height: 24px !important;
+
+        @include tablet {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        @include mobile {
+            width: 16px !important;
+        }
+    }
+}
+
+//
+.MuiFab-root {
+    width: 50px !important;
+    height: 50px !important;
+
+    @include tablet {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    box-shadow: none !important;
+}
+
+.MuiFab-primary {
+    background-color: transparent !important;
 }

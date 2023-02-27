@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import Cookies from 'js-cookie';
+// import { useEffect, useState } from 'react';
+// import { Elements } from '@stripe/react-stripe-js';
+// import { loadStripe } from '@stripe/stripe-js';
+// import Cookies from 'js-cookie';
 
 import Home from '~/components/Pages/Home';
 import Products from '~/components/Pages/Product/Product';
@@ -18,27 +18,31 @@ import ResetPassword from '~/components/User/ResetPassword';
 import Cart from '~/components/Cart';
 import Shipping from '~/components/Cart/Shipping';
 import ConfirmOrder from '~/components/Cart/ConfirmOrder';
-import request from '~/utils/httpRequest';
+// import request from '~/utils/httpRequest';
 import Payment from '~/components/Cart/Payment';
 import OrderSuccess from '~/components/Cart/OrderSuccess';
 import MyOrder from '~/components/Order/MyOrder';
-import OrderDetail from '~/components/Order/OrderDetail';
+import OrderDetails from '~/components/Order/OrderDetails';
+import Dashboard from '~/components/Admin/Dashboard';
+import ProductList from '~/components/Admin/ProductList';
+import NewProduct from '~/components/Admin/NewProduct';
+import UpdateProduct from '~/components/Admin/UpdateProduct';
 function Content() {
-    const [stripeApiKey, setStripeApiKey] = useState('');
+    // const [stripeApiKey, setStripeApiKey] = useState('');
 
-    async function getStripeApiKey() {
-        const token = Cookies.get('token');
+    // async function getStripeApiKey() {
+    //     const token = Cookies.get('token');
 
-        const { data } = await request.get('/stripeapikey', {
-            params: { token: token ? token : '' },
-        });
+    //     const { data } = await request.get('/stripeapikey', {
+    //         params: { token: token ? token : '' },
+    //     });
 
-        setStripeApiKey(data.stripeApiKey);
-    }
+    //     setStripeApiKey(data.stripeApiKey);
+    // }
 
-    useEffect(() => {
-        getStripeApiKey();
-    }, []);
+    // useEffect(() => {
+    //     getStripeApiKey();
+    // }, []);
 
     return (
         <Routes>
@@ -109,25 +113,60 @@ function Content() {
                 path="/order/:id"
                 element={
                     <ProtectedRoute>
-                        <OrderDetail />
+                        <OrderDetails />
                     </ProtectedRoute>
                 }
             />
 
             <Route path="/password/forgot" element={<ForgotPassword />} />
             <Route path="/password/reset/:token" element={<ResetPassword />} />
-            {stripeApiKey && (
-                <Route
-                    path="/process/payment"
-                    element={
-                        <ProtectedRoute>
-                            <Elements stripe={loadStripe(stripeApiKey)} key={stripeApiKey}>
-                                <Payment />
-                            </Elements>
-                        </ProtectedRoute>
-                    }
-                />
-            )}
+
+            <Route
+                path="/process/payment"
+                element={
+                    <ProtectedRoute>
+                        {/* <Elements stripe={loadStripe(stripeApiKey)} key={stripeApiKey}> */}
+                        <Payment />
+                        {/* </Elements> */}
+                    </ProtectedRoute>
+                }
+            />
+
+            {/* Admin route */}
+            <Route
+                path="/admin/dashboard"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/admin/products"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <ProductList />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/product"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <NewProduct />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/product/:id"
+                element={
+                    // <ProtectedRoute isAdmin={true}>
+                        <UpdateProduct />
+                    // </ProtectedRoute>
+                }
+            />
         </Routes>
     );
 }
