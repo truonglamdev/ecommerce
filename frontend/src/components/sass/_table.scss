@@ -136,3 +136,54 @@
         padding: 0.75em;
     }
 }
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 14px;
+}
+
+.button {
+    outline: none;
+    border: 1px solid #ccc;
+    padding: 4px 12px;
+    border-radius: 4px;
+    min-width: 60px;
+    font-size: 1.2rem;
+    color: #333;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+
+    &:hover .active-text {
+        display: block;
+    }
+
+    &:hover .active-icon {
+        display: none;
+    }
+}
+
+.edit-button {
+    background-color: #40f5c5;
+    margin-right: 8px;
+}
+
+.delete-button {
+    background-color: #e14958;
+}
+
+.cancel-button {
+    background-color: #777;
+    margin-left: 10px;
+}
+
+.active-text {
+    display: none;
+}
+
+.wrap-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

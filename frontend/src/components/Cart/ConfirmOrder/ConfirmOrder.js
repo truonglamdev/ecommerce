@@ -28,7 +28,6 @@ function ConfirmOrder() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('checkOut-box')}>
-                {' '}
                 <CheckoutSteps activeStep={1} />
             </div>
             <div className={cx('container')}>
@@ -62,9 +61,8 @@ function ConfirmOrder() {
                                             <Link to={`/product/${item.product}`} className={cx('product-name')}>
                                                 {item.name}
                                             </Link>
-                                            <span className={cx('product-price')}>
-                                                {item.quantity} x ${item.price} = <b>${item.price * item.quantity}</b>
-                                            </span>
+                                            <div className={cx('product-price')}>Quantity : {item.quantity}</div>
+                                            <span className={cx('product-price')}>Price : ${item.price}</span>
                                         </div>
                                     </div>
                                 ))}

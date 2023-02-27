@@ -1,9 +1,9 @@
-import { CardNumberElement, CardCvcElement, CardExpiryElement } from '@stripe/react-stripe-js';
+// import { CardNumberElement, CardCvcElement, CardExpiryElement } from '@stripe/react-stripe-js';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
-import { faCalendarDays, faCreditCard, faKey } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCalendarDays, faCreditCard, faKey } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 
 import styles from './Payment.module.scss';
@@ -38,7 +38,7 @@ function Payment() {
     const handleSubmitPayment = (e) => {
         e.preventDefault();
 
-        alert.error('This function is updating please try again later');
+        alert.success('Confirm order successfully');
         order.paymentInfo = {
             id: user._id,
             status: 'succeeded',
@@ -55,7 +55,7 @@ function Payment() {
             dispatch(clearErrors());
         }
     }, [dispatch, error, alert]);
-    
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('check-out')}>
@@ -64,7 +64,7 @@ function Payment() {
             <div className={cx('container')}>
                 <form className={cx('payment-form')} onSubmit={(e) => handleSubmitPayment(e)}>
                     <div className={cx('title')}>Card Information</div>
-                    <div className={cx('form-group')}>
+                    {/* <div className={cx('form-group')}>
                         <div className={cx('icon')}>
                             <FontAwesomeIcon icon={faCreditCard} />
                         </div>
@@ -81,7 +81,7 @@ function Payment() {
                             <FontAwesomeIcon icon={faKey} />
                         </div>
                         <CardExpiryElement className={cx('payment-input')} />
-                    </div>
+                    </div> */}
                     <input ref={btnRef} type="submit" value={`Pay`} className={cx('submit-btn')} readOnly />
                 </form>
             </div>

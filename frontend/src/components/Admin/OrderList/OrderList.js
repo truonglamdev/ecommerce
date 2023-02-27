@@ -1,32 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useAlert } from 'react-alert';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import styles from './ProductList.module.scss';
+import styles from './OrderList.module.scss';
 import Sidebar from '../Sidebar';
-
-import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { clearErrors, deleteProduct, resetDeleted } from '~/actions/productAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { clearErrors, deleteOrder, getAllOrders, resetDeleteOrder } from '~/actions/orderAction';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Box, Modal, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Loader from '~/components/layout/Loader';
+
 const cx = classNames.bind(styles);
-function ProductList() {
+function OrderList() {
     const dispatch = useDispatch();
     const alert = useAlert();
     const navigate = useNavigate();
-
+    const [idOrder, setIdOrder] = useState('');
     const [open, setOpen] = useState(false);
-    const [idProduct, setIdProduct] = useState('');
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const { products, error } = useSelector((state) => state.adminProducts);
-    const { error: deleteError, isDeleted, loading } = useSelector((state) => state.deleteProduct);
+    const { orders, loading, error } = useSelector((state) => state.adminOrders);
+    const { error: deleteError, isDeleted, loading: deleteLoading } = useSelector((state) => state.order);
 
     const styleModal = {
         position: 'absolute',
@@ -40,21 +36,22 @@ function ProductList() {
         boxShadow: 24,
         p: 4,
     };
+
     const columns = [
-        { field: 'id', headerName: 'Product ID' },
+        { field: 'id', headerName: 'Order Id' },
 
         {
-            field: 'name',
-            headerName: 'Name',
+            field: 'status',
+            headerName: 'Status',
         },
         {
-            field: 'stock',
-            headerName: 'Stock',
+            field: 'itemsQty',
+            headerName: 'Item Quantity',
         },
 
         {
-            field: 'price',
-            headerName: 'Price',
+            field: 'amount',
+            headerName: 'Amount',
         },
 
         {
@@ -65,28 +62,29 @@ function ProductList() {
 
     const rows = [];
 
-    products &&
-        products.forEach((item) => {
+    orders &&
+        orders.forEach((item) => {
             return rows.push({
                 id: item._id,
-                stock: item.Stock,
-                price: item.price,
-                name: item.name,
+                orderStatus: item.orderStatus,
+                itemsQty: item.orderItems.length,
+                amount: item.totalPrice,
             });
         });
 
-    const handleEditProduct = (id) => {
-        navigate(`/admin/product/${id}`);
-    };
-
     const handleOnclickBtnDelete = (id) => {
         handleOpen();
-        setIdProduct(id);
+        setIdOrder(id);
     };
 
-    const handleDelete = () => {
-        dispatch(deleteProduct(idProduct));
+    const handleDeleteOrder = () => {
+        dispatch(deleteOrder(idOrder));
         handleClose();
+        setIdOrder('');
+    };
+
+    const handleEditOrder = (id) => {
+        navigate(`/admin/order/${id}`);
     };
 
     useEffect(() => {
@@ -94,23 +92,21 @@ function ProductList() {
             alert.error(error);
             dispatch(clearErrors());
         }
-
         if (deleteError) {
             alert.error(deleteError);
             dispatch(clearErrors());
         }
-
         if (isDeleted) {
-            alert.success('Product Deleted Successfully');
-            navigate('/admin/dashboard');
-            dispatch(resetDeleted());
+            alert.success('Deleted Order Successfully');
+            dispatch(resetDeleteOrder());
+            navigate('/admin/orders');
         }
+        dispatch(getAllOrders());
+    }, [dispatch, error, alert, deleteError, isDeleted, navigate]);
 
-        // dispatch(adminProducts());
-    }, [alert, isDeleted, deleteError, dispatch, navigate, error]);
     return (
         <>
-            {loading ? (
+            {loading && deleteLoading ? (
                 <Loader />
             ) : (
                 <div className={cx('wrapper-admin-page')}>
@@ -119,7 +115,7 @@ function ProductList() {
                     </div>
                     <div className={cx('container-admin-page')}>
                         <table className={cx('responsive-table')}>
-                            <caption>All Products</caption>
+                            <caption>All Orders</caption>
                             <thead>
                                 <tr>
                                     {columns &&
@@ -132,26 +128,26 @@ function ProductList() {
                             </thead>
                             <tbody>
                                 {rows &&
-                                    rows.map((product) => (
-                                        <tr key={product.id}>
-                                            <th scope="row">{product.id}</th>
-                                            <td data-title="Name">{product.name}</td>
-                                            <td data-title="Stock">{product.stock}</td>
-                                            <td data-title="Price" data-type="currency">
-                                                {product.price}
+                                    rows.map((order) => (
+                                        <tr key={order.id}>
+                                            <th scope="row">{order.id}</th>
+                                            <td data-title="Status">{order.orderStatus}</td>
+                                            <td data-title="Item Quantity">{order.itemsQty}</td>
+                                            <td data-title="Amount" data-type="currency">
+                                                {order.amount}
                                             </td>
                                             <td data-title="Action" data-type="currency">
                                                 <div className={cx('action-button')}>
                                                     <button
                                                         className={cx('edit-button', 'button')}
-                                                        onClick={() => handleEditProduct(product.id)}
+                                                        onClick={() => handleEditOrder(order.id)}
                                                     >
                                                         <span className={cx('active-text')}>edit</span>{' '}
                                                         <FontAwesomeIcon className={cx('active-icon')} icon={faPen} />
                                                     </button>
                                                     <button
                                                         className={cx('delete-button', 'button')}
-                                                        onClick={() => handleOnclickBtnDelete(product.id)}
+                                                        onClick={() => handleOnclickBtnDelete(order.id)}
                                                     >
                                                         <span className={cx('active-text')}>delete</span>
                                                         <FontAwesomeIcon className={cx('active-icon')} icon={faTrash} />
@@ -165,7 +161,6 @@ function ProductList() {
                     </div>
                 </div>
             )}
-
             <div>
                 <Modal
                     open={open}
@@ -175,11 +170,11 @@ function ProductList() {
                 >
                     <Box sx={styleModal}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Are you sure you want to delete this product?
+                            Are you sure you want to delete this order?
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                             <div className={cx('wrap-button')}>
-                                <button className={cx('button', 'delete-button')} onClick={handleDelete}>
+                                <button className={cx('button', 'delete-button')} onClick={handleDeleteOrder}>
                                     Delete
                                 </button>
                                 <button className={cx('button', 'cancel-button')} onClick={handleClose}>
@@ -194,4 +189,4 @@ function ProductList() {
     );
 }
 
-export default ProductList;
+export default OrderList;

@@ -10,10 +10,18 @@ import {
     deleteProductReducer,
     newProductReducer,
     updateProductReducer,
+    reviewReducer,
+    productReviewReducer,
 } from '~/reducers/productReducer';
-import { allUsersReducer, forgotPasswordReducer, profileReducer, userReducer } from '~/reducers/userReducer';
+import { allUsersReducer, forgotPasswordReducer, profileReducer, userAdminReducer, userDetailsReducer, userReducer } from '~/reducers/userReducer';
 import { cartReducer } from '~/reducers/cartReducer';
-import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer } from '~/reducers/orderReducer';
+import {
+    allOrdersReducer,
+    myOrdersReducer,
+    newOrderReducer,
+    orderDetailsReducer,
+    orderReducer,
+} from '~/reducers/orderReducer';
 const reducer = combineReducers({
     products: productReducer,
     productDetails: productDetailReducer,
@@ -27,11 +35,18 @@ const reducer = combineReducers({
     orderDetails: orderDetailsReducer,
     //admin
     adminUsers: allUsersReducer,
-    adminOrders: allOrdersReducer,
     adminProducts: adminProductReducer,
     deleteProduct: deleteProductReducer,
     newProduct: newProductReducer,
-    updateProduct: updateProductReducer
+    updateProduct: updateProductReducer,
+
+    order: orderReducer,
+    adminOrders: allOrdersReducer,
+
+    userAdmin : userAdminReducer,
+    userDetails : userDetailsReducer,
+    productReviews : productReviewReducer,
+    review : reviewReducer
 });
 
 let initialState = {

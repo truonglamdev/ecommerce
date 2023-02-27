@@ -1,0 +1,156 @@
+@import '../../sass/admin';
+@import '../../sass/mixin';
+
+.container {
+    border: 1px solid #ccc;
+    margin: 20px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #f5f6f8;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+    @include mobile {
+        margin: 8px;
+        padding: 8px;
+    }
+}
+
+.title-header {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 40px;
+
+    @include mobile {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+.title {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    font-weight: 600;
+    margin: 10px 0;
+
+    @include mobile {
+        font-size: 1.4rem;
+        margin: 10px;
+    }
+}
+.line {
+    width: 98%;
+    height: 1px;
+    border-bottom: 1px solid #ccc;
+}
+
+.user-info {
+    display: flex;
+    margin-top: 20px;
+
+    @include mobile {
+        margin-top: 10px;
+        flex-direction: column;
+    }
+}
+
+.content-left {
+    width: 40%;
+    border-right: 1px solid #ccc;
+
+    @include mobile {
+        width: 100%;
+
+        border-color: transparent;
+    }
+}
+
+.content-right {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.avatar {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    display: flex;
+    margin: auto;
+    border-radius: 50%;
+
+    @include mobile {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+
+    @include mobile {
+        margin: 14px 0;
+    }
+}
+
+.form-header {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 6px;
+}
+
+.input,
+.input-select {
+    width: 90%;
+    outline: none;
+    border: 1px solid var(--text-color);
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-color);
+    border-radius: 4px;
+
+    @include mobile {
+        padding: 8px 16px;
+    }
+}
+
+.input-select {
+    width: 50%;
+
+    // @include mobile {
+    //     width: 90%;
+    // }
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    min-width: 200px;
+    font-size: 1.2rem;
+    font-family: 500;
+    color: #fff;
+    background-color: var(--text-color);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+
+    svg {
+        margin-left: 6px;
+    }
+
+    @include mobile {
+        padding: 8px 14px;
+        margin: 14px auto;
+
+        justify-content: center;
+        display: flex;
+    }
+
+    &:hover {
+        opacity: 0.9;
+    }
+}

@@ -1,33 +1,31 @@
-import { useEffect, useState } from 'react';
-import { useAlert } from 'react-alert';
-import { useDispatch, useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
-
 import classNames from 'classnames/bind';
-import Loader from '~/components/layout/Loader';
-import { clearErrors, loadUser, updateProfile, updateProfileReset } from '~/actions/userAction';
 import styles from './UpdateProfile.module.scss';
-import profile from '~/images/Profile.png';
+import profileUrl from '~/images/Profile.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo, faCircleUp, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { clearErrors, loadUser, updateProfile, updateProfileReset } from '~/actions/userAction';
+import Loader from '~/components/layout/Loader';
 
 const cx = classNames.bind(styles);
-function UpdateProfile() {
-    const alert = useAlert();
+function NewUpdateProfile() {
     const dispatch = useDispatch();
+    const alert = useAlert();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
     const { loading, isUpdated, error } = useSelector((state) => state.profile);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [avatar, setAvatar] = useState('');
-    const [avatarReview, setAvatarReview] = useState(profile);
+    const [avatarReview, setAvatarReview] = useState(profileUrl);
 
-    const updateProfileSubmit = (e) => {
+    const handleUpdateProfile = (e) => {
         e.preventDefault();
 
         const myForm = new FormData();
-
         myForm.set('name', name);
         myForm.set('email', email);
         myForm.set('avatar', avatar);
@@ -58,12 +56,12 @@ function UpdateProfile() {
         if (user) {
             setName(user.name);
             setEmail(user.email);
-            setAvatarReview(user.avatar.url);
+            setAvatarReview(user.avatar ? user.avatar.url : profileUrl);
         }
 
         if (error) {
             alert.error(error.message);
-            dispatch(clearErrors);
+            dispatch(clearErrors());
         }
 
         if (isUpdated) {
@@ -73,69 +71,74 @@ function UpdateProfile() {
             dispatch(updateProfileReset());
         }
     }, [user, dispatch, error, alert, isUpdated, navigate]);
+
     return (
         <>
             {loading ? (
                 <Loader />
             ) : (
-                <div className={cx('wrapper')}>
+                <div className={cx('wrapper')} onSubmit={handleUpdateProfile}>
                     <div className={cx('container')}>
-                        <div className={cx('title')}>
-                            <span>Update Profile</span>
-                            <p className={cx('under-light')}></p>
-                        </div>
-
-                        <form
-                            encType="multipart/form-data"
-                            className={cx('form-update')}
-                            onSubmit={updateProfileSubmit}
-                        >
-                            <div className={cx('name')}>
-                                <span className={cx('icon')}>
-                                    <FontAwesomeIcon icon={faUser} />
-                                </span>
-                                <input
-                                    className={cx('name-input')}
-                                    type="text"
-                                    placeholder="Enter your name..."
-                                    name="name"
-                                    required
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                            </div>
-                            <div className={cx('email')}>
-                                <span className={cx('icon')}>
-                                    <FontAwesomeIcon icon={faEnvelope} />
-                                </span>
-                                <input
-                                    className={cx('email-input')}
-                                    type="email"
-                                    placeholder="Enter your email..."
-                                    name="email"
-                                    required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-
-                            <div className={cx('update-img')}>
-                                <img src={avatarReview} alt="Avatar Preview" className={cx('profile-img')} />
+                        <div className={cx('header-title')}>Edit Profile</div>
+                        <div className={cx('profile-info')}>
+                            <div className={cx('content-left')}>
+                                <div className={cx('title')}>
+                                    Photo <FontAwesomeIcon icon={faCircleUser} />
+                                </div>
+                                <div className={cx('form-group')}>
+                                    <img src={avatarReview} className={cx('avatar')} alt="" />
+                                </div>
+                                <label className={cx('change-photo-btn')} htmlFor="chooseAvt">
+                                    Changer de photo
+                                </label>
                                 <input
                                     type="file"
+                                    id="chooseAvt"
+                                    hidden
                                     name="avatar"
-                                    accept="image/*"
                                     onChange={(e) => updateProfileDataChange(e)}
-                                />
+                                    accept="image/*"
+                                ></input>
                             </div>
+                            <form className={cx('content-right')}>
+                                <div className={cx('title')}>
+                                    User Information <FontAwesomeIcon icon={faCircleInfo} />
+                                </div>
+                                <div className={cx('form-group')}>
+                                    <div className={cx('title')}>Full Name</div>
+                                    <input
+                                        className={cx('input')}
+                                        value={name}
+                                        required
+                                        onChange={(e) => setName(e.target.value)}
+                                    ></input>
+                                </div>
 
-                            <input
-                                type="submit"
-                                value="Update"
-                                placeholder="Choose file"
-                                className={cx('update-btn')}
-                            />
-                        </form>
+                                <div className={cx('form-group')}>
+                                    <div className={cx('title')}>Email</div>
+                                    <input
+                                        className={cx('input')}
+                                        type="email"
+                                        value={email}
+                                        required
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    ></input>
+                                </div>
+                                <div className={cx('form-group')}>
+                                    <div className={cx('title')}>
+                                        Create At :{String(user && user.createdAt).substr(0, 10)}{' '}
+                                    </div>
+                                </div>
+
+                                <div className={cx('form-group')}>
+                                    <div className={cx('title')}>Role : {user && user.role ? user.role : ''}</div>
+                                </div>
+
+                                <button type="submit" className={cx('update-btn')}>
+                                    Update <FontAwesomeIcon icon={faCircleUp} />
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}
@@ -143,4 +146,4 @@ function UpdateProfile() {
     );
 }
 
-export default UpdateProfile;
+export default NewUpdateProfile;

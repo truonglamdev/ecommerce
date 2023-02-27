@@ -1,14 +1,39 @@
 @import '../../sass/mixin';
 
 .wrapper {
-    display: flex;
-    align-items: center;
     width: 100%;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
 
     @include mobile {
-        margin-top: 70px;
+        margin-top: var(--height-header-tablet);
+    }
+}
+
+.container {
+    width: 64%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    border-radius: 6px;
+
+    @include tablet {
+        height: 400px;
+        width: 90%;
+    }
+
+    @include mobile {
         flex-direction: column;
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+        padding: 0 20px;
     }
 }
 
@@ -17,13 +42,17 @@
     align-items: center;
     flex-direction: column;
     width: 46%;
+
+    @include mobile {
+        width: 100%;
+    }
 }
 
 .title {
     font-size: 2rem;
     font-family: 'Roboto';
-    font-weight: 600;
-    color: #999;
+    font-weight: 700;
+    color: var(--text-color);
 }
 
 .avatar {
@@ -32,68 +61,63 @@
     object-fit: cover;
     border-radius: 50%;
     margin: 20px 0;
-}
 
-.edit-btn {
-    width: 32%;
-    padding: 8px 8px;
-    background-color: var(--primary-color);
-    color: #333;
-    border-radius: 2px;
-    font-size: 1.4rem;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.4s all;
+    @include tablet {
+        width: 160px;
+        height: 160px;
+    }
 
     @include mobile {
         width: 140px;
-    }
-
-    &:hover {
-        background-color: var(--primary-color-hover);
-        opacity: 0.8;
+        height: 140px;
     }
 }
 
 .content-right {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    // flex: 1;
     width: 50%;
+    margin-left: 20px;
 
     @include mobile {
         width: 100%;
         justify-content: center;
-        margin-left: 26%;
+        margin-left: 0;
+        align-items: center;
+        margin: 0 auto;
     }
 }
 
 .group {
-    margin: 18px 0;
+    margin: 12px 0;
     display: flex;
     flex-direction: column;
+    @include mobile {
+        width: 100%;
+    }
 }
 
 .label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
     font-family: 'Roboto';
-    color: #333;
+    color: var(--text-color);
 }
 
 .name {
     margin-top: 6px;
     font-size: 1.4rem;
-    font-weight: 400;
-    color: #999;
+    font-weight: 500;
+    color: #777;
 }
 
 .change-password,
-.order-btn {
+.order-btn,
+.edit-btn {
     width: 40%;
     padding: 8px 8px;
-    background-color: #333;
+    background-color: var(--text-color);
     color: #fff;
     border-radius: 2px;
     font-size: 1.4rem;
@@ -105,6 +129,9 @@
     &:hover {
         opacity: 0.8;
     }
+}
 
+.change-password,
+.order-btn {
     margin-top: 18px;
 }

@@ -1,145 +1,165 @@
 @import '../../sass/mixin';
 .wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    max-width: 100%;
+    width: 100%;
     height: 100vh;
-    max-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(231, 231, 231);
-}
 
-.container {
-    overflow: hidden;
-    margin-top: 30px;
-    background-color: white;
-    width: 380px;
-    height: 400px;
-    box-sizing: border-box;
-    border-radius: 6px;
-    padding: 0 10px;
     @include tablet {
-        height: 400px;
+        height: 100%;
+        margin-top: var(--height-header-pc) ;
+        
     }
 
     @include mobile {
-        width: 300px;
-        height: 340px;
+        height: 100%;
+        margin-top: var(--height-header-mobile) ;
+    }
+}
+
+.container {
+    width: 65%;
+    overflow: hidden;
+    background-color: white;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    border-radius: 6px;
+    padding: 30px;
+
+    @include tablet {
+        height: 400px;
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    @include mobile {
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 14px;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0;
+}
+
+.header-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 14px;
+
+    @include tablet {
+        font-size: 2rem;
+    }
+
+    @include mobile {
+        font-size: 1.8;
     }
 }
 
 .title {
-    width: 100%;
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: #666;
-    font-family: 'Roboto';
-    margin: 0 20px;
-}
-
-.under-light {
-    width: 60%;
-    height: 1px;
-    background-color: #666;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
     align-items: center;
-    margin: 10px auto 0 auto;
+    margin: 4px 0;
+
+    svg {
+        margin-left: 6px;
+    }
 }
 
-.form-update {
+.profile-info {
+    display: flex;
+
+    @include mobile {
+        flex-direction: column;
+    }
+}
+.content-left {
+    width: 50%;
+    border-right: 1px solid #ccc;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: auto;
-    padding: 2vmax;
-    justify-content: space-evenly;
-    height: 70%;
-    transition: all 0.5s;
-}
 
-.form-register {
-    transform: translateY(-100%) translateX(-100vmax);
-}
-.email,
-.name {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.email-input,
-.name-input {
-    box-sizing: border-box;
-    padding: 12px 40px;
-    width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.267);
-    font-size: 1rem;
-    font-weight: 300;
-    font-family: cursive;
-    border-radius: 6px;
-    outline: none;
-}
-
-.icon {
-    position: absolute;
-    transform: translateX(12px);
-    font-size: 1.4rem;
-    color: rgba(0, 0, 0, 0.623);
-    display: block;
-
-    &:hover {
-        color: black;
+    @include mobile {
+        width: 100%;
+        border-right: none;
     }
 }
 
-.update-img {
-    display: flex;
-    align-items: center;
-    padding: 0;
+.content-right {
+    flex: 1;
+    margin-left: 30px;
 
-    input::file-selector-button {
-        width: 40%;
-        z-index: 2;
-        height: 40px;
-        margin: 0%;
-        border: none;
-        font: 400 1rem cursive;
-        padding: 0 6px;
-        color: rgba(0, 0, 0, 0.623);
-        background-color: rgb(255, 255, 255);
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        transition: all 0.5s;
-        cursor: pointer;
+    @include mobile {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
     }
 }
 
-.profile-img {
-    width: 40px;
-    height: 40px;
+.avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
     object-fit: cover;
-    border-radius: 100%;
-    margin-right: 20px;
+    overflow: hidden;
+    margin: 10px auto;
+
+    @include mobile {
+        width: 160px;
+        height: 160px;
+    }
 }
 
-.update-btn {
-    border: none;
-    background-color: tomato;
-    color: white;
-    font: 300 1rem 'Roboto';
-    width: 100%;
-    padding: 10px;
-    transition: all 0.5s;
-    border-radius: 4px;
+.input {
+    width: 90%;
     outline: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+    border: 1px solid var(--text-color);
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-color);
+    border-radius: 4px;
+
+    &:focus {
+        outline-color: var(--text-color);
+    }
+}
+
+.update-btn,
+.change-photo-btn {
+    padding: 10px;
+    min-width: 160px;
+    font-size: 1.3rem;
+    font-family: 600;
+    color: #fff;
+    background-color: var(--text-color);
+    border: 1px solid transparent;
+    border-radius: 4px;
     cursor: pointer;
+    text-align: center;
+    transition: 0.4s ease-in-out;
+    margin-top: 12px;
+
+    svg {
+        margin-left: 6px;
+    }
 
     &:hover {
-        background-color: var(--primary-color-hover);
+        opacity: 0.9;
     }
+}
+
+.change-photo-btn {
+    width: 160px;
+    margin: 0 auto;
 }

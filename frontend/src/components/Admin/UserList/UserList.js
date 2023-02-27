@@ -1,32 +1,26 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useAlert } from 'react-alert';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, Modal, Typography } from '@mui/material';
 import classNames from 'classnames/bind';
-import styles from './ProductList.module.scss';
-import Sidebar from '../Sidebar';
-
-import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { clearErrors, deleteProduct, resetDeleted } from '~/actions/productAction';
+import { useEffect, useState } from 'react';
+import { useAlert } from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { clearErrors, deleteUser, deleteUserReset, getAllUsers } from '~/actions/userAction';
 import Loader from '~/components/layout/Loader';
+import Sidebar from '../Sidebar';
+import styles from './UserList.module.scss';
+
 const cx = classNames.bind(styles);
-function ProductList() {
+function UserList() {
     const dispatch = useDispatch();
     const alert = useAlert();
     const navigate = useNavigate();
+    const { users, error, loading } = useSelector((state) => state.adminUsers);
+    const { error: deleteError, isDeleted } = useSelector((state) => state.userAdmin);
 
     const [open, setOpen] = useState(false);
-    const [idProduct, setIdProduct] = useState('');
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const { products, error } = useSelector((state) => state.adminProducts);
-    const { error: deleteError, isDeleted, loading } = useSelector((state) => state.deleteProduct);
+    const [userId, setUserId] = useState('');
 
     const styleModal = {
         position: 'absolute',
@@ -41,20 +35,20 @@ function ProductList() {
         p: 4,
     };
     const columns = [
-        { field: 'id', headerName: 'Product ID' },
+        { field: 'id', headerName: 'User Id' },
 
+        {
+            field: 'email',
+            headerName: 'Email',
+        },
         {
             field: 'name',
             headerName: 'Name',
         },
-        {
-            field: 'stock',
-            headerName: 'Stock',
-        },
 
         {
-            field: 'price',
-            headerName: 'Price',
+            field: 'role',
+            headerName: 'Role',
         },
 
         {
@@ -65,28 +59,32 @@ function ProductList() {
 
     const rows = [];
 
-    products &&
-        products.forEach((item) => {
+    users &&
+        users.forEach((user) => {
             return rows.push({
-                id: item._id,
-                stock: item.Stock,
-                price: item.price,
-                name: item.name,
+                id: user._id,
+                name: user.name,
+                role: user.role,
+                email: user.email,
             });
         });
 
-    const handleEditProduct = (id) => {
-        navigate(`/admin/product/${id}`);
-    };
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleOnclickBtnDelete = (id) => {
         handleOpen();
-        setIdProduct(id);
+        setUserId(id);
     };
 
-    const handleDelete = () => {
-        dispatch(deleteProduct(idProduct));
+    const handleDeleteUser = () => {
+        dispatch(deleteUser(userId));
+        setUserId('');
         handleClose();
+    };
+
+    const handleEditUser = (id) => {
+        navigate(`/admin/user/${id}`);
     };
 
     useEffect(() => {
@@ -101,25 +99,25 @@ function ProductList() {
         }
 
         if (isDeleted) {
-            alert.success('Product Deleted Successfully');
-            navigate('/admin/dashboard');
-            dispatch(resetDeleted());
+            dispatch(deleteUserReset());
+            alert.success('Deleted User Successfully ! ');
+            navigate();
         }
 
-        // dispatch(adminProducts());
-    }, [alert, isDeleted, deleteError, dispatch, navigate, error]);
+        dispatch(getAllUsers('/admin/users'));
+    }, [error, dispatch, alert, deleteError, isDeleted, navigate]);
     return (
         <>
-            {loading ? (
-                <Loader />
-            ) : (
-                <div className={cx('wrapper-admin-page')}>
-                    <div>
-                        <Sidebar />
-                    </div>
+            <div className={cx('wrapper-admin-page')}>
+                <div>
+                    <Sidebar />
+                </div>
+                {loading ? (
+                    <Loader />
+                ) : (
                     <div className={cx('container-admin-page')}>
                         <table className={cx('responsive-table')}>
-                            <caption>All Products</caption>
+                            <caption>All Users</caption>
                             <thead>
                                 <tr>
                                     {columns &&
@@ -132,26 +130,26 @@ function ProductList() {
                             </thead>
                             <tbody>
                                 {rows &&
-                                    rows.map((product) => (
-                                        <tr key={product.id}>
-                                            <th scope="row">{product.id}</th>
-                                            <td data-title="Name">{product.name}</td>
-                                            <td data-title="Stock">{product.stock}</td>
-                                            <td data-title="Price" data-type="currency">
-                                                {product.price}
+                                    rows.map((user) => (
+                                        <tr key={user.id}>
+                                            <th scope="row">{user.id}</th>
+                                            <td data-title="Email">{user.email}</td>
+                                            <td data-title="Name">{user.name}</td>
+                                            <td data-title="Role" data-type="currency">
+                                                {user.role}
                                             </td>
                                             <td data-title="Action" data-type="currency">
                                                 <div className={cx('action-button')}>
                                                     <button
                                                         className={cx('edit-button', 'button')}
-                                                        onClick={() => handleEditProduct(product.id)}
+                                                        onClick={() => handleEditUser(user.id)}
                                                     >
                                                         <span className={cx('active-text')}>edit</span>{' '}
                                                         <FontAwesomeIcon className={cx('active-icon')} icon={faPen} />
                                                     </button>
                                                     <button
                                                         className={cx('delete-button', 'button')}
-                                                        onClick={() => handleOnclickBtnDelete(product.id)}
+                                                        onClick={() => handleOnclickBtnDelete(user.id)}
                                                     >
                                                         <span className={cx('active-text')}>delete</span>
                                                         <FontAwesomeIcon className={cx('active-icon')} icon={faTrash} />
@@ -163,9 +161,8 @@ function ProductList() {
                             </tbody>
                         </table>
                     </div>
-                </div>
-            )}
-
+                )}
+            </div>
             <div>
                 <Modal
                     open={open}
@@ -175,11 +172,11 @@ function ProductList() {
                 >
                     <Box sx={styleModal}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                            Are you sure you want to delete this product?
+                            Are you sure you want to delete this user?
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                             <div className={cx('wrap-button')}>
-                                <button className={cx('button', 'delete-button')} onClick={handleDelete}>
+                                <button className={cx('button', 'delete-button')} onClick={handleDeleteUser}>
                                     Delete
                                 </button>
                                 <button className={cx('button', 'cancel-button')} onClick={handleClose}>
@@ -194,4 +191,4 @@ function ProductList() {
     );
 }
 
-export default ProductList;
+export default UserList;

@@ -29,7 +29,7 @@ function UpdatePassword() {
         myForm.set('newPassword', newPassword);
         myForm.set('confirmPassword', confirmPassword);
 
-        dispatch(updatePassword(myForm))
+        dispatch(updatePassword(myForm));
     };
 
     const handleShowPassword = (name) => {
@@ -47,16 +47,16 @@ function UpdatePassword() {
     useEffect(() => {
         if (error) {
             alert.error(error.message);
-            dispatch(clearErrors);
+            dispatch(clearErrors());
         }
 
         if (isUpdated) {
             alert.success('Profile Updated Successfully!');
             navigate('/account');
-
             dispatch(updatePasswordReset());
         }
     }, [dispatch, error, alert, isUpdated, navigate]);
+
     return (
         <>
             {loading ? (

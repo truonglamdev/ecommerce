@@ -6,15 +6,13 @@ const ApiFeatures = require('../utils/apifeatures');
 const cloudinary = require('cloudinary');
 
 const createProduct = catchAsyncErrors(async (req, res, next) => {
-    let images = [] ;
+    let images = [];
 
     if (typeof req.body.images === 'string') {
         images.push(req.body.images);
     } else {
         images = req.body.images;
     }
-
-    console.log('Uploaded images cloudinary successfully');
 
     const imagesLinks = [];
 

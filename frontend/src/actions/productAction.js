@@ -26,6 +26,12 @@ import {
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_RESET,
+    DELETE_REVIEW_REQUEST,
+    DELETE_REVIEW_SUCCESS,
+    ALL_REVIEW_REQUEST,
+    ALL_REVIEW_SUCCESS,
+    ALL_REVIEW_FAIL,
+    DELETE_REVIEW_RESET,
 } from '~/constants/productConstants';
 import * as request from '~/utils/httpRequest';
 //Get all products
@@ -151,6 +157,36 @@ const updateProduct = (id, productData) => async (dispatch) => {
     }
 };
 
+const deleteReview = (reviewId, productId) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_REVIEW_REQUEST });
+        const token = Cookies.get('token');
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+            params: { token: token ? token : '' },
+        };
+        const data = await request.remove(`/reviews?id=${reviewId}&productId=${productId}`, config);
+        dispatch({ type: DELETE_REVIEW_SUCCESS, payload: data.success });
+    } catch (error) {
+        console.log(error.response.data.message);
+        dispatch({ type: DELETE_REVIEW_SUCCESS, payload: error.response.data.message });
+    }
+};
+
+const getAllReviews = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_REVIEW_REQUEST });
+        const res = await request.get(`/reviews?id=${id}`);
+        dispatch({ type: ALL_REVIEW_SUCCESS, payload: res.reviews });
+    } catch (error) {
+        console.log(error.response.data.message);
+        dispatch({
+            type: ALL_REVIEW_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
 const resetNewProduct = () => (dispatch) => {
     dispatch({ type: NEW_PRODUCT_RESET });
 };
@@ -166,6 +202,11 @@ const resetReview = () => async (dispatch) => {
 const resetUpdate = () => async (dispatch) => {
     dispatch({ type: UPDATE_PRODUCT_RESET });
 };
+
+const resetDeleteReview = () => async (dispatch) => {
+    dispatch({ type: DELETE_REVIEW_RESET });
+};
+
 const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
@@ -183,4 +224,7 @@ export {
     newProduct,
     resetNewProduct,
     updateProduct,
+    deleteReview,
+    getAllReviews,
+    resetDeleteReview,
 };

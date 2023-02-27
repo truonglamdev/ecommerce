@@ -27,6 +27,11 @@ import Dashboard from '~/components/Admin/Dashboard';
 import ProductList from '~/components/Admin/ProductList';
 import NewProduct from '~/components/Admin/NewProduct';
 import UpdateProduct from '~/components/Admin/UpdateProduct';
+import OrderList from '~/components/Admin/OrderList';
+import EditOrder from '~/components/Admin/EditOrder';
+import UserList from '~/components/Admin/UserList';
+import EditUser from '~/components/Admin/EditUser';
+import ListReview from '~/components/Admin/ListReview';
 function Content() {
     // const [stripeApiKey, setStripeApiKey] = useState('');
 
@@ -162,9 +167,53 @@ function Content() {
             <Route
                 path="/admin/product/:id"
                 element={
-                    // <ProtectedRoute isAdmin={true}>
+                    <ProtectedRoute isAdmin={true}>
                         <UpdateProduct />
-                    // </ProtectedRoute>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/order/:id"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <EditOrder />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/orders"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <OrderList />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/admin/users"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <UserList />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/user/:id"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <EditUser />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin/reviews"
+                element={
+                    <ProtectedRoute isAdmin={true}>
+                        <ListReview />
+                    </ProtectedRoute>
                 }
             />
         </Routes>

@@ -1,33 +1,64 @@
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { clearErrors, getOrderDetails } from '~/actions/orderAction';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { clearErrors, getOrderDetails, resetUpdateOrder, updateOrder } from '~/actions/orderAction';
 import Loader from '~/components/layout/Loader';
-import styles from './OrderDetails.module.scss';
+import Sidebar from '../Sidebar';
+import styles from './EditOrder.module.scss';
 
 const cx = classNames.bind(styles);
-function OrderDetails() {
+function EditOrder() {
     const dispatch = useDispatch();
     const alert = useAlert();
     const params = useParams();
-    const { order, loading, error } = useSelector((state) => state.orderDetails);
+    const navigate = useNavigate();
+    const { order, error, loading } = useSelector((state) => state.orderDetails);
+    const { error: updateError, isUpdated } = useSelector((state) => state.order);
+    const [status, setStatus] = useState('');
+
+    const handleSelectStatus = (e) => {
+        setStatus(e.target.value);
+    };
+
+    const handleUpdateOrder = (e) => {
+        e.preventDefault();
+        const myForm = new FormData();
+        myForm.set('status', status);
+
+        dispatch(updateOrder(params.id, myForm));
+    };
 
     useEffect(() => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
+
+        if (updateError) {
+            alert.error(updateError);
+            dispatch(clearErrors());
+        }
+
+        if (isUpdated) {
+            alert.success('Update Order Successfully !');
+            dispatch(resetUpdateOrder());
+            navigate('/admin/orders');
+        }
+
         dispatch(getOrderDetails(params.id));
-    }, [alert, dispatch, error, params]);
+    }, [error, dispatch, alert, params, updateError, navigate, isUpdated]);
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper-admin-page')}>
+            <div>
+                <Sidebar />
+            </div>
             {loading ? (
                 <Loader />
             ) : (
-                <div className={cx('page')}>
+                <div className={cx('container-admin-page')}>
                     <div className={cx('content')}>
                         <div className={cx('content-left')}>
                             <div className={cx('title')}>Shipping Information</div>
@@ -91,7 +122,7 @@ function OrderDetails() {
                             <div className={cx('form-group')}>
                                 <div className={cx('wrap')}>
                                     <strong className={cx('bold')}>Date : </strong>{' '}
-                                    <span className={cx('text')}>{String(order && order.createdAt).substr(0, 10)}</span>
+                                    <span className={cx('text')}> {order && order.createdAt}</span>
                                 </div>
 
                                 <div className={cx('line')}></div>
@@ -149,6 +180,24 @@ function OrderDetails() {
                                 </div>
                                 <div className={cx('line')}></div>
                             </div>
+
+                            <form className={cx('update-order-form')} onSubmit={handleUpdateOrder}>
+                                <div className={cx('title')}>Process Order</div>
+                                <select className={cx('select-input')} onChange={(e) => handleSelectStatus(e)}>
+                                    <option value="">Choose Category</option>
+                                    {order.orderStatus === 'Processing' && <option value="Shipped">Shipped</option>}
+
+                                    {order.orderStatus === 'Shipped' && <option value="Delivered">Delivered</option>}
+                                </select>
+
+                                <button
+                                    type="submit"
+                                    className={cx('submit-btn')}
+                                    disabled={loading ? true : false || status === '' ? true : false}
+                                >
+                                    Process
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -157,4 +206,4 @@ function OrderDetails() {
     );
 }
 
-export default OrderDetails;
+export default EditOrder;

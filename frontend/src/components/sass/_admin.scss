@@ -1,0 +1,28 @@
+@import './mixin';
+
+.wrapper-admin-page {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    position: relative;
+    margin-top: var(--height-header-pc);
+
+    @include tablet {
+        margin-top: var(--height-header-tablet);
+    }
+
+    @include mobile {
+        margin-top: var(--height-header-mobile);
+        grid-template-columns: 1fr;
+    }
+}
+
+.container-admin-page {
+    border-left: 1px solid rgba(0, 0, 0, 0.13);
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+
+    @include mobile {
+        padding: 14px;
+    }
+}

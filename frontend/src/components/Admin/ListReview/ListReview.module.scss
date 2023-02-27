@@ -1,0 +1,126 @@
+@import '../../sass/admin';
+@import '../../sass/table';
+@import '../../sass/mixin';
+
+.content {
+    width: 90%;
+    border: 1px solid #ccc;
+    min-height: 200px;
+    padding: 30px;
+
+    @include mobile {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: center;
+
+    @include mobile {
+        font-size: 1.6rem;
+    }
+}
+
+.search {
+    margin: 20px 0;
+}
+
+.search-input {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1.4rem;
+    outline: none;
+    border-radius: 4px;
+
+    @include mobile {
+        width: 90%;
+        font-size: 1.3rem;
+    }
+}
+
+.all-review {
+    margin-bottom: 40px;
+
+    @include mobile {
+        margin-bottom: 20px;
+    }
+}
+
+.wrapper-info-user {
+    width: 100%;
+    display: flex;
+    min-width: 250px;
+    align-items: center;
+}
+
+.info-user-left {
+    .avatar {
+        width: 34px;
+        height: 34px;
+        object-fit: cover;
+        border-radius: 50%;
+
+        @include mobile {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
+
+.info-user-right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+
+    .header {
+        display: flex;
+        align-items: center;
+
+        .name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-right: 6px;
+        }
+
+        .review-date {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #999;
+        }
+    }
+
+    .review {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #666;
+        text-align: left;
+    }
+}
+
+.no-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: 0.4s ease-in-out;
+
+    @include mobile {
+        font-size: 1.8rem;
+    }
+
+    .no-review-icon {
+        font-size: 4rem;
+        margin: 20px 0;
+
+        @include mobile {
+            font-size: 3.5rem;
+        }
+    }
+}

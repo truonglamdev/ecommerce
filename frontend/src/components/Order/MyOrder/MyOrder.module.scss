@@ -1,6 +1,7 @@
 @import '../../sass/mixin';
+@import '../../sass/table';
 .wrapper {
-    margin: var(--height-header-pc) 0;
+    margin-top: var(--height-header-pc);
 }
 
 .container {
@@ -10,46 +11,26 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 0 50px;
+    padding: 40px 80px;
 
     @include mobile {
         padding: 0 10px;
     }
 }
 
-.order-heading {
+.launch-icon {
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--text-color);
     text-align: center;
-    font: 400 1.2rem 'Roboto';
-    padding: 10px;
-    box-sizing: border-box;
-    color: rgb(255, 255, 255);
-    transition: all 0.5s;
-    background-color: rgb(44, 44, 44);
-}
-
-.orders-table {
-    background-color: #fff;
-}
-
-.orders-table div {
-    font-size: 1.2rem;
-    font-weight: 300;
-    font-family: 'Roboto';
-    color: #333;
-    border: none;
-}
-
-.orders-table a {
-    color: rgba(0, 0, 0, 0.527);
-    transition: all 0.5s;
+    margin: 0 auto;
 
     &:hover {
         color: var(--primary-color);
     }
-}
 
-.launch-icon {
-    font-size: 1.6rem;
-    text-decoration: none;
-    color: #777;
+    @include tablet {
+        margin: 0;
+        font-size: 1.8rem;
+    }
 }

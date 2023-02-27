@@ -95,8 +95,11 @@ const updateStatusOrder = catchAsyncErrors(async (req, res, next) => {
 
 async function UpdateStock(id, quantity) {
     const product = await Product.findById(id);
-
-    product.Stock -= quantity;
+    if (product.Stock >= quantity) {
+        product.Stock -= quantity;
+    } else {
+        product.Stock = 0;
+    }
 
     await product.save({ validateBeforeSave: false });
 }

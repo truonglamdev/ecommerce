@@ -28,6 +28,17 @@ import {
     ALL_USERS_FAIL,
     ALL_USERS_REQUEST,
     ALL_USERS_SUCCESS,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_RESET,
+    USERS_DETAILS_REQUEST,
+    USERS_DETAILS_SUCCESS,
+    USERS_DETAILS_FAIL,
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
+    DELETE_USER_RESET,
 } from '~/constants/userConstants';
 import * as request from '~/utils/httpRequest';
 
@@ -121,16 +132,14 @@ const updatePassword = (passwords) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_PASSWORD_REQUEST });
         const token = await Cookies.get('token');
-        const res = await request.put(
-            '/auth/password/update',
-            passwords,
-            { params: { token: token ? token : '' } },
-            {
-                headers: { 'Content-Type': 'application/json' },
-            },
-        );
+        const config = {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            params: { token: token ? token : '' },
+        };
+        const res = await request.put('/auth/password/update', passwords, config);
         dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: res.success });
     } catch (error) {
+        console.log(error.response.data.message);
         dispatch({ type: UPDATE_PASSWORD_FAIL, payload: error.response.data.message });
     }
 };
@@ -171,6 +180,47 @@ const getAllUsers = () => async (dispatch) => {
     }
 };
 
+// Update user [admin]
+const updateUser = (id, dataUser) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_USER_REQUEST });
+        const token = await Cookies.get('token');
+        const config = { headers: { 'Content-Type': 'application/json' }, params: { token: token ? token : '' } };
+        const res = await request.put(`/auth/admin/user/${id}`, dataUser, config);
+        dispatch({ type: UPDATE_USER_SUCCESS, payload: res.success });
+    } catch (error) {
+        console.log(error.response.data.message);
+        dispatch({ type: UPDATE_USER_FAIL, payload: error.response.data.message });
+    }
+};
+
+//get single user admin
+const getUserDetails = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: USERS_DETAILS_REQUEST });
+        const token = await Cookies.get('token');
+        const res = await request.get(`/auth/admin/user/${id}`, { params: { token: token ? token : '' } });
+        dispatch({ type: USERS_DETAILS_SUCCESS, payload: res.user });
+    } catch (error) {
+        dispatch({ type: USERS_DETAILS_FAIL, payload: error.response.data.message });
+    }
+};
+
+// Delete User [admin]
+const deleteUser = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_USER_REQUEST });
+        const token = await Cookies.get('token');
+        const data = await request.remove(`/auth/admin/user/${id}`, { params: { token: token ? token : '' } });
+        dispatch({ type: DELETE_USER_SUCCESS, payload: data.success });
+    } catch (error) {
+        dispatch({
+            type: DELETE_USER_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
 // Clearing Errors
 const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
@@ -181,6 +231,14 @@ const updateProfileReset = () => async (dispatch) => {
 };
 const updatePasswordReset = () => async (dispatch) => {
     dispatch({ type: UPDATE_PASSWORD_RESET });
+};
+
+const updateUserReset = () => async (dispatch) => {
+    dispatch({ type: UPDATE_USER_RESET });
+};
+
+const deleteUserReset = () => async (dispatch) => {
+    dispatch({ type: DELETE_USER_RESET });
 };
 export {
     login,
@@ -195,4 +253,9 @@ export {
     forgotPassword,
     resetPassword,
     getAllUsers,
+    updateUser,
+    getUserDetails,
+    updateUserReset,
+    deleteUser,
+    deleteUserReset,
 };

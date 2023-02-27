@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { useAlert } from 'react-alert';
-import { DataGrid } from '@mui/x-data-grid';
 import classNames from 'classnames/bind';
 import styles from './MyOrder.module.scss';
 import { clearErrors, myOrders } from '~/actions/orderAction';
-import { Link } from 'react-router-dom';
 import Loader from '~/components/layout/Loader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
-import { Typography } from '@mui/material';
 
 const cx = classNames.bind(styles);
 function MyOrder() {
@@ -17,48 +15,26 @@ function MyOrder() {
     const alert = useAlert();
 
     const { loading, error, orders } = useSelector((state) => state.myOrders);
-    const { user } = useSelector((state) => state.user);
+    // const { user } = useSelector((state) => state.user);
 
     const columns = [
-        { field: 'id', headerName: 'Order Id', minWidth: 300, flex: 1 },
+        { field: 'id', headerName: 'Order Id', },
         {
             field: 'status',
             headerName: 'Status',
-            minWidth: 150,
-            flex: 0.5,
-            cellClassName: (params) => {
-                return params.getValue(params.id, 'status') === 'Delivered' ? 'green-color' : 'red-color';
-            },
         },
         {
             field: 'itemsQty',
             headerName: 'Items Qty',
-            type: 'number',
-            minWidth: 150,
-            flex: 0.3,
         },
         {
             field: 'amount',
             headerName: 'Amount',
-            type: 'number',
-            minWidth: 270,
-            flex: 0.5,
         },
 
         {
             field: 'actions',
-            flex: 0.3,
             headerName: 'Actions',
-            minWidth: 150,
-            type: 'number',
-            sortable: false,
-            renderCell: (params) => {
-                return (
-                    <Link to={`/order/${params.getValue(params.id, 'id')}`} className={cx('launch-icon')}>
-                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                    </Link>
-                );
-            },
         },
     ];
 
@@ -88,16 +64,39 @@ function MyOrder() {
                 <Loader />
             ) : (
                 <div className={cx('container')}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={10}
-                        disableSelectionOnClick
-                        autoHeight
-                        className={cx('orders-table')}
-                        rowsPerPageOptions={[5, 10, 20, 50]}
-                    />
-                    <Typography className={cx('order-heading')}>{user.name}'s Orders</Typography>
+                    <table className={cx('responsive-table')}>
+                        <caption>My Orders</caption>
+                        <thead>
+                            <tr>
+                                {columns &&
+                                    columns.map((column, index) => (
+                                        <th key={index} scope="col">
+                                            {column.headerName}
+                                        </th>
+                                    ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows &&
+                                rows.map((order) => (
+                                    <tr key={order.id}>
+                                        <th scope="row">{order.id}</th>
+                                        <td data-title="Status">{order.status}</td>
+                                        <td data-title="Item Quantity">{order.itemsQty}</td>
+                                        <td data-title="Amount" data-type="currency">
+                                            {order.amount}
+                                        </td>
+                                        <td data-title="Action" data-type="currency">
+                                            <div className={cx('action-button')}>
+                                                <Link to={`/order/${order.id}`} className={cx('launch-icon')}>
+                                                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                                                </Link>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>
