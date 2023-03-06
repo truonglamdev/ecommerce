@@ -38,7 +38,7 @@ body {
 }
 
 .primary-btn {
-    min-width: 120px;
+    min-width: 160px;
     padding: 8px 10px;
     font-size: 1.4rem;
     font-weight: 500;
@@ -51,14 +51,14 @@ body {
     transition: 0.5 ease-in;
 
     @include tablet {
-        min-width: 100px;
+        min-width: 150px;
         font-size: 1.2rem;
     }
 
     @include mobile {
-        min-width: 80px;
+        min-width: 140px;
         font-size: 1rem;
-        padding: 6px 4px;
+        padding: 8px 6px;
     }
 
     &:hover {

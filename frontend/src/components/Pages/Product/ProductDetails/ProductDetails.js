@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Carousel from 'react-material-ui-carousel';
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
 
 import classNames from 'classnames/bind';
 import styles from './ProductDetails.module.scss';
@@ -18,10 +19,35 @@ function ProductDetails() {
     const { product, loading, error } = useSelector((state) => state.productDetails);
     const { success, error: reviewError, loading: reviewLoading } = useSelector((state) => state.newReview);
     const options = {
-        value: product.ratings,
         readOnly: true,
         precision: 0.5,
         size: 'small',
+    };
+
+    const buttonStyle = {
+        width: '28px',
+        height: '28px',
+        padding: '6px',
+        background: '#ccc',
+        border: '0px',
+        borderRadius: '50%',
+    };
+
+    const properties = {
+        prevArrow: (
+            <button style={{ ...buttonStyle }}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff">
+                    <path d="M242 180.6v-138L0 256l242 213.4V331.2h270V180.6z" />
+                </svg>
+            </button>
+        ),
+        nextArrow: (
+            <button style={{ ...buttonStyle }}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff">
+                    <path d="M512 256L270 42.6v138.2H0v150.6h270v138z" />
+                </svg>
+            </button>
+        ),
     };
 
     const params = useParams();
@@ -69,7 +95,7 @@ function ProductDetails() {
         }
         if (reviewError) {
             alert.error(reviewError);
-            dispatch(clearErrors);
+            dispatch(clearErrors());
         }
 
         if (success) {
@@ -88,8 +114,9 @@ function ProductDetails() {
                     <div className={cx('container')}>
                         <div className={cx('slide-box')}>
                             <div className={cx('product-slide')}>
-                                <Carousel>
-                                    {product.images &&
+                                <Slide {...properties} pauseOnHover={true} duration={3000} transitionDuration={2000}>
+                                    {product &&
+                                        product.images &&
                                         product.images.map((image, index) => (
                                             <img
                                                 className={cx('slide-image')}
@@ -98,7 +125,19 @@ function ProductDetails() {
                                                 alt={`${index} slide`}
                                             />
                                         ))}
-                                </Carousel>
+                                </Slide>
+
+                                <div className={cx('preview-image')}>
+                                    {product.images &&
+                                        product.images.map((image, index) => (
+                                            <img
+                                                className={cx('image')}
+                                                key={index}
+                                                src={image.url}
+                                                alt={`${index} img`}
+                                            />
+                                        ))}
+                                </div>
                             </div>
                         </div>
                         <div className={cx('product-box')}>
@@ -108,14 +147,14 @@ function ProductDetails() {
                             </div>
                             <div className={cx('product-rating')}>
                                 <div>
-                                    <Rating {...options}  />
+                                    <Rating {...options } value={product ? product.ratings : 0} />
                                 </div>
                                 <span className={cx('quantity-reviews')}>
                                     (<span>{product.numOfReviews}</span> Reviews)
                                 </span>
                             </div>
                             <div className={cx('product-info')}>
-                                <span className={cx('product-price')}>${product.price}</span>
+                                <span className={cx('product-price')}>Price : ${product.price}</span>
                                 <div className={cx('product-status')}>
                                     <div className={cx('product-quantity')}>
                                         <button className={cx('quantity-btn')} onClick={handleDecreaseQuantity}>
@@ -195,7 +234,7 @@ function ProductDetails() {
                         {product.reviews && product.reviews[0] ? (
                             product.reviews.map((review, index) => <ReviewCard data={review} key={index} />)
                         ) : (
-                            <div className={cx('no-review')}>No review</div>
+                            <div className={cx('no-review')}>No reviews &#128546;</div>
                         )}
                     </div>
                 </div>

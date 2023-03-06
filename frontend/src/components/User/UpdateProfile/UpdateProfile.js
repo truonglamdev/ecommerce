@@ -60,7 +60,7 @@ function NewUpdateProfile() {
         }
 
         if (error) {
-            alert.error(error.message);
+            alert.error(error);
             dispatch(clearErrors());
         }
 

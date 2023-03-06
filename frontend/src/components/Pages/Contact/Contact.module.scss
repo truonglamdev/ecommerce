@@ -1,0 +1,114 @@
+@import '../../sass/mixin';
+.wrapper {
+    margin-top: var(--height-header-pc);
+
+    @include tablet {
+        margin-top: var(--height-header-tablet);
+    }
+    @include mobile {
+        margin-top: var(--height-header-mobile);
+    }
+}
+
+.contact {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color-header);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+
+    @include mobile {
+        flex-direction: column;
+        width: calc(100% - 20px);
+        padding: 10px;
+    }
+}
+
+.contact-left {
+    width: 50%;
+    padding-left: 20px;
+    border-right: 1px solid #111;
+    display: flex;
+    flex-direction: column;
+
+    @include mobile {
+        width: 100%;
+        padding: 0;
+        border-right: none;
+        justify-content: center;
+    }
+}
+
+.contact-right {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-right: 20px;
+
+    @include mobile {
+        padding-right: 0;
+    }
+}
+.contact-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 16px 0;
+
+    @include tablet {
+        font-size: 2rem;
+    }
+}
+
+.contact-text {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #333;
+
+    @include tablet {
+        font-size: 1.4rem;
+    }
+}
+
+.contact-follow-group {
+    display: flex;
+    margin-bottom: 10px;
+
+    svg {
+        margin-right: 10px;
+    }
+}
+
+.contact-input,
+.contact-textarea {
+    outline: none;
+    font-size: 1.4rem;
+    padding: 12px 10px;
+    width: 340px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 12px 0;
+    color: var(--text-color);
+
+    @include tablet {
+        width: 280px;
+    }
+
+    @include mobile {
+        width: 240px;
+    }
+}
+
+.contact-submit {
+    outline: none;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 14px;
+    min-width: 140px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background-color: var(--text-color);
+    color: #fff;
+}

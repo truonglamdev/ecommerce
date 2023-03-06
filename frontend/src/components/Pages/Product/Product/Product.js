@@ -44,32 +44,37 @@ function Products() {
             dispatch(clearErrors());
         }
         dispatch(getProducts(keyword, currentPage, price, category, ratings));
-
     }, [dispatch, alert, error, keyword, currentPage, price, category, ratings]);
 
     return (
-        <>
-            <h2 className={cx('product-header')}>Products</h2>
-            {loading ? (
-                <Loader />
-            ) : (
-                <div className={cx('wrapper')}>
-                    <div className={cx('filter-container')}>
-                        <div className={cx('filter-price')}>
-                            <Typography>Price</Typography>
-                            <Slider
-                                valueLabelDisplay="auto"
-                                aria-labelledby="range-slider"
-                                onChange={handleSetNewPrice}
-                                value={price}
-                                min={0}
-                                max={25000}
-                                color="secondary"
-                                size="small"
-                            />
-                        </div>
-                        <div className={cx('filter-category')}>
-                            <Typography className={cx('title')}>Categories</Typography>
+        <div className={cx('wrapper')}>
+            <div className={cx('filter-container')}>
+                <div className={cx('filter-box')}>
+                    <div className={cx('filter-price')}>
+                        <div className={cx('title')}>Price</div>
+                        <Slider
+                            valueLabelDisplay="auto"
+                            aria-labelledby="range-slider"
+                            onChange={handleSetNewPrice}
+                            value={price}
+                            min={0}
+                            max={25000}
+                            color="secondary"
+                            size="small"
+                        />
+                    </div>
+                    <div className={cx('filter-category')}>
+                        <div className={cx('title')}>Categories</div>
+
+                        {window.innerWidth <= 1023 ? (
+                            <select className={cx('select-catalog')} onChange={(e) => setCategory(e.target.value)}>
+                                {categories.map((category) => (
+                                    <option className={cx('category-link')} key={category} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
+                            </select>
+                        ) : (
                             <ul className={cx('category-box')}>
                                 {categories.map((category) => (
                                     <li
@@ -81,29 +86,37 @@ function Products() {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-
-                        <fieldset className={cx('filter-rating')}>
-                            <Typography component="legend">Ratings Above</Typography>
-                            <Slider
-                                aria-labelledby="continuous-slider"
-                                valueLabelDisplay="auto"
-                                min={0}
-                                max={5}
-                                color="secondary"
-                                size="small"
-                                value={ratings}
-                                onChange={(e, newRating) => setRatings(newRating)}
-                            />
-                        </fieldset>
+                        )}
                     </div>
 
-                    <div className={cx('product-container')}>
+                    <fieldset className={cx('filter-rating')}>
+                        <Typography className={cx('title')} component="legend">
+                            Ratings Above
+                        </Typography>
+                        <Slider
+                            aria-labelledby="continuous-slider"
+                            valueLabelDisplay="auto"
+                            min={0}
+                            max={5}
+                            color="secondary"
+                            size="small"
+                            value={ratings}
+                            onChange={(e, newRating) => setRatings(newRating)}
+                        />
+                    </fieldset>
+                </div>
+            </div>
+
+            <div className={cx('product-container')}>
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <div>
+                        <div className={cx('big-title')}>PRODUCTS</div>
                         <div className={cx('product-box')}>
                             {products && products.map((product) => <ProductCard key={product._id} product={product} />)}
                         </div>
-
-                        {products.length  && (
+                        {products.length && (
                             <div className={cx('pagination-container')}>
                                 <Pagination
                                     activePage={currentPage}
@@ -123,9 +136,9 @@ function Products() {
                             </div>
                         )}
                     </div>
-                </div>
-            )}
-        </>
+                )}
+            </div>
+        </div>
     );
 }
 

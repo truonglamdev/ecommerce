@@ -84,7 +84,6 @@ const updateProduct = catchAsyncErrors(async (req, res, next) => {
                 folder: 'products',
             });
 
-            console.log('test');
             imagesLinks.push({
                 public_id: result.public_id,
                 url: result.secure_url,

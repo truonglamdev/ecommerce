@@ -1,42 +1,67 @@
 @import '../../../sass/mixin';
 
+.wrapper {
+    width: 100%;
+    height: 100%;
+    margin-top: 120px;
+
+    @include mobile {
+        margin-top: 60px;
+    }
+}
+
 .container {
     display: flex;
-    background-color: rgb(252, 238, 238);
-    width: 100vw;
-    max-width: 100%;
-    padding: 80px;
+    width: 80%;
+    margin: auto;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    background-color: var(--bg-color-header);
 
     @include tablet {
-        padding: 58px 26px;
+        padding: 12px;
+        width: 90%;
     }
 
     @include mobile {
-        padding: 52px 14px;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
     }
 }
 
 .slide-box {
     width: 50%;
-    border: 1px solid white;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include mobile {
+        width: 100%;
+    }
 }
 
 .product-slide {
-    width: 340px;
-    height: 340px;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    width: 90%;
+    height: 80%;
+    padding: 14px;
     box-sizing: border-box;
     z-index: 0;
 
     @include tablet {
-        width: 300px;
-        height: 300px;
-        padding: 14px;
+        width: 100%;
+        height: 90%;
     }
 
     @include mobile {
@@ -48,7 +73,24 @@
 
 .slide-image {
     width: 100%;
+    height: 100%;
     object-fit: cover;
+}
+
+.preview-image {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+
+    .image {
+        width: 100px;
+        height: 100px;
+
+        @include mobile {
+            width: 74px;
+            height: 74px;
+        }
+    }
 }
 
 .product-box {
@@ -61,7 +103,7 @@
     }
 
     @include mobile {
-        padding: 12px 4px;
+        width: 100%;
     }
 }
 
@@ -152,7 +194,7 @@
         font-size: 1.6rem;
     }
     @include mobile {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 }
 
@@ -170,10 +212,11 @@
 .product-quantity {
     display: flex;
     align-items: center;
+    margin: 8px 0;
 }
 
 .quantity-btn {
-    width: 20px;
+    width: 24px;
     padding: 6px;
     border: none;
     border-radius: 1px;
@@ -190,7 +233,7 @@
 .quantity-input {
     border: none;
     padding: 8px;
-    width: 18px;
+    width: 24px;
     text-align: center;
     outline: none;
     font: 500 1rem 'Roboto';
@@ -206,11 +249,18 @@
     }
 }
 
+.add-to-cart-btn,
+.submit-review {
+    min-width: 160px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
 .product-stock {
     width: 80%;
     padding: 20px 0;
     font-size: 1.4rem;
-    font-weight: 500;
+    font-weight: 600;
     font-family: 'Roboto';
     border-top: 1px solid rgba(0, 0, 0, 0.205);
     border-bottom: 1px solid rgba(0, 0, 0, 0.205);
@@ -221,8 +271,8 @@
     }
 
     @include mobile {
-        padding: 12px 0;
-        font-size: 1rem;
+        padding: 16px 0;
+        font-size: 1.2rem;
     }
 
     span {
@@ -235,11 +285,14 @@
 }
 
 .description {
+    width: 80%;
     margin: 12px 0;
+    padding: 6px 0;
     font-size: 1.8rem;
     font-weight: 600;
     font-family: 'Roboto';
     color: #333;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.205);
 
     @include tablet {
         font-size: 1.6rem;
@@ -271,10 +324,10 @@
     padding: 8px 0;
     margin: 20px auto;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 600;
     font-family: 'Roboto';
-    border-bottom: 2px solid #eee;
-    color: rgb(43, 41, 41);
+    border-bottom: 2px solid #ccc;
+    color: var(--text-color);
 
     @include tablet {
         width: 200px;
@@ -288,32 +341,38 @@
 }
 
 .reviews-container {
+    width: 96%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 14px auto;
     overflow: auto;
-    margin: 10px 0;
+
+    @include mobile {
+        width: 90%;
+    }
 }
 
 .no-review {
+    width: 100%;
     text-align: center;
-    margin: 0 auto;
-    padding: 20px;
+    justify-content: center;
+    padding: 20px 0;
     font-size: 1.6rem;
-    font-weight: 400;
-    font-family: 'Roboto';
+    font-weight: 500;
     color: #666;
 }
 
 .review-title {
     color: var(--primary-color);
-    padding: 6px 30px !important;
+    padding: 6px 24px !important;
     margin-top: 20px !important;
     text-align: center;
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-family: 500;
-        font-family: 'Roboto';
+        font-family: var(--text-color);
     }
 }
 

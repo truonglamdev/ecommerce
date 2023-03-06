@@ -23,7 +23,6 @@ import Payment from '~/components/Cart/Payment';
 import OrderSuccess from '~/components/Cart/OrderSuccess';
 import MyOrder from '~/components/Order/MyOrder';
 import OrderDetails from '~/components/Order/OrderDetails';
-import Dashboard from '~/components/Admin/Dashboard';
 import ProductList from '~/components/Admin/ProductList';
 import NewProduct from '~/components/Admin/NewProduct';
 import UpdateProduct from '~/components/Admin/UpdateProduct';
@@ -32,23 +31,9 @@ import EditOrder from '~/components/Admin/EditOrder';
 import UserList from '~/components/Admin/UserList';
 import EditUser from '~/components/Admin/EditUser';
 import ListReview from '~/components/Admin/ListReview';
+import AdminDashboard from '~/components/Admin/Dashboard/AdminDashboard';
+import Contact from '~/components/Pages/Contact';
 function Content() {
-    // const [stripeApiKey, setStripeApiKey] = useState('');
-
-    // async function getStripeApiKey() {
-    //     const token = Cookies.get('token');
-
-    //     const { data } = await request.get('/stripeapikey', {
-    //         params: { token: token ? token : '' },
-    //     });
-
-    //     setStripeApiKey(data.stripeApiKey);
-    // }
-
-    // useEffect(() => {
-    //     getStripeApiKey();
-    // }, []);
-
     return (
         <Routes>
             <Route path="/" element={<Home />} />
@@ -59,6 +44,7 @@ function Content() {
             <Route path="/login" element={<LoginSignUp />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/shipping" element={<Shipping />} />
+            <Route path="/contact" element={<Contact />} />
 
             <Route
                 path="/account"
@@ -142,7 +128,7 @@ function Content() {
                 path="/admin/dashboard"
                 element={
                     <ProtectedRoute isAdmin={true}>
-                        <Dashboard />
+                        <AdminDashboard />
                     </ProtectedRoute>
                 }
             />

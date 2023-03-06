@@ -31,7 +31,6 @@ class ApiFeatures {
 
         // return this;
 
-
         const queryCopy = { ...this.queryStr };
         //   Removing some fields for category
         const removeFields = ['keyword', 'page', 'limit'];

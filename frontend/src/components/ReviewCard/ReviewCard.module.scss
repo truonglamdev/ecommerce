@@ -4,14 +4,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 260px;
-    padding: 30px 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
+    width: 240px;
+    padding: 32px 16px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     border: 1px solid rgba(56, 56, 56, 0.116);
+    border-radius: 4px;
+    background-color: var(--bg-color-header);
+
+    @include tablet {
+        width: 200px;
+        padding: 20px;
+    }
 
     @include mobile {
-        width: 230px;
-        padding: 20px 12px;
+        width: 160px;
+        padding: 14px;
     }
     & + .wrapper {
         margin-left: 16px;
@@ -20,10 +27,13 @@
 
 .avatar {
     width: 90px;
+    height: 90px;
+    border-radius: 50%;
     object-fit: cover;
 
     @include mobile {
         width: 70px;
+        height: 70px;
     }
 }
 
@@ -39,6 +49,6 @@
 }
 
 .comment {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 400;
 }

@@ -82,7 +82,7 @@ function LoginSignUp() {
     useEffect(() => {
         if (error) {
             alert.error(error);
-            dispatch(clearErrors);
+            dispatch(clearErrors());
         }
 
         if (isAuthenticated) {

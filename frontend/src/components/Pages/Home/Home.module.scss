@@ -1,5 +1,7 @@
 @import '../../sass/mixin';
 .wrapper {
+    width: 100%;
+    height: 100%;
     margin-top: var(--height-header-pc);
 
     @include tablet {
@@ -11,115 +13,302 @@
     }
 }
 
-.banner {
-    // background-image: url(../../../images/bg-image.webp);
-
-    // height: 100vh;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    color: white;
-
-    .title {
-        font-size: 3rem;
-        font-family: 'cursive';
-        font-weight: 600;
-        margin: 30px;
-
-        @include mobile {
-            font-size: 2.6rem;
-        }
-    }
-}
-
-.banner-image {
+.banner-slider {
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
+    height: 90%;
+    position: relative;
 
     @include tablet {
         height: 100%;
     }
 }
 
-// .banner::after {
-//     content: '';
-//     width: 100%;
-//     height: 100%;
-//     background-color: #ffffff;
-//     position: absolute;
-//     top: 0%;
-//     left: 0;
-//     clip-path: polygon(100% 68%, 0 100%, 100% 100%);
-//     max-width: 100%;
-//     z-index: 0;
-// }
+.slide-container {
+    width: 100%;
+    height: 100%;
+}
 
-.home-header {
-    text-align: center;
-    font-family: 'cursive';
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.best-product {
+    position: relative;
+    bottom: 230px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    @include tablet {
+        bottom: 90px;
+    }
+
+    @include mobile {
+        width: 100%;
+        bottom: 40px;
+        gap: 4px;
+    }
+}
+
+.product-item {
+    min-height: 400px;
+    height: 100%;
+    width: 280px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    padding: 4px;
+
+    @include mobile {
+        min-height: 360px;
+    }
+
+    @include mobile {
+        min-height: 180px;
+        width: 120px;
+    }
+}
+
+.product-title {
     font-size: 2rem;
-    border-bottom: 1px solid rgba(21, 21, 21, 0.5);
-    width: 200px;
-    padding: 14px;
-    margin: 50px auto;
-    color: rgb(0, 0, 0, 0.7);
-}
-
-.title-box {
-    position: absolute;
-    border-radius: 6px;
-    border: 1px solid #999;
-    animation: slide 0.8s ease-in;
-    transform: translateY(-50%);
-    background-color: rgba(28, 28, 28, 0.349);
-
-    @include mobile {
-        display: none;
-    }
-}
-
-@keyframes slide {
-    0% {
-        top: 10%;
-        opacity: 0.6;
-        background-color: pink;
-    }
-    100% {
-        top: 40%;
-        opacity: 1;
-        background-color: rgba(28, 28, 28, 0.349);
-    }
-}
-
-.content {
-    font-size: 1.4rem;
-    font-family: 'cursive';
     font-weight: 600;
+    color: var(--text-color);
+
     @include mobile {
+        font-size: 1.2rem;
+        padding: 6px;
+    }
+}
+
+.product-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.form-group {
+    padding: 10px;
+
+    @include mobile {
+        padding: 2px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+
+        @include mobile {
+            width: 38px;
+            height: 38px;
+        }
+    }
+
+    div {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: var(--text-color);
+        margin-top: 10px;
+
+        @include mobile {
+            font-size: 0.7rem;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+.see-all-btn {
+    width: 70%;
+    padding: 8px 14px;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    background-color: #fed813;
+    color: var(--text-color);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+
+    @include mobile {
+        padding: 4px 10px;
+        width: 80%;
+        margin: 10px auto;
         font-size: 1.2rem;
     }
 }
 
-.scroll-btn {
-    width: 94px;
-    padding: 10px;
-    margin-bottom: 50px;
-    margin-top: 10px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1.2rem;
-    font-family: 'cursive';
-    font-weight: 400;
-    transition: all 0.5s;
-    cursor: pointer;
+.banner-shipping {
+    width: 100%;
+    height: 220px;
 
-    &:hover {
-        background-color: rgba(255, 255, 255, 0);
-        color: white;
+    @include mobile {
+        height: 100px;
+    }
+}
+
+.product-ads {
+    background-image: url('../../../images/homeImages/bg-banner.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 90%;
+    border-radius: 8px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    background-color: aqua;
+    padding: 20px;
+
+    @include mobile {
+        flex-direction: column;
+        padding: 8px;
+    }
+}
+
+.content-left {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+
+    .title-left {
+        font-size: 2.6rem;
+        font-weight: 600;
+        color: #fff;
+        text-transform: uppercase;
+
+        @include tablet {
+            font-size: 2rem;
+        }
+
+        @include mobile {
+            font-size: 1.6rem;
+        }
+    }
+
+    .text-left {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #fff;
+        margin: 16px 0;
+
+        @include tablet {
+            font-size: 1.6rem;
+        }
+
+        @include mobile {
+            font-size: 1.2rem;
+        }
+    }
+
+    .see-new-btn {
+        width: 180px;
+        font-size: 1.6rem;
+        padding: 10px 14px;
+        border: none;
+        border-radius: 999px;
+        outline: none;
+        cursor: pointer;
+
+        @include tablet {
+            width: 160px;
+            font-size: 1.4rem;
+        }
+
+        @include mobile {
+            width: 130px;
+            font-size: 1.2rem;
+        }
+    }
+
+    @include tablet {
+        width: 30%;
+    }
+
+    @include mobile {
+        width: 90%;
+        margin-bottom: 10px;
+    }
+}
+
+.content-right {
+    flex: 1;
+    .right-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @include mobile {
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+    }
+
+    .wrap-item {
+        background-color: #fff;
+        width: 200px;
+        padding: 6px;
+        border-radius: 6px;
+        text-align: center;
+
+        @include tablet {
+            width: 130px;
+        }
+
+        @include mobile {
+            width: 90px;
+            margin: 6px 0;
+        }
+
+        div {
+            width: 100%;
+            font-size: 1.6rem;
+            color: var(--text-color);
+            font-weight: 600;
+
+            @include mobile {
+                font-size: 1.2rem;
+            }
+        }
+
+        p {
+            width: 100%;
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 6px 0;
+
+            @include mobile {
+                font-size: 1rem;
+            }
+        }
+
+        img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+
+            @include tablet {
+                width: 120px;
+                height: 120px;
+            }
+
+            @include mobile {
+                width: 50px;
+                height: 50px;
+            }
+        }
     }
 }
 
@@ -131,3 +320,4 @@
     flex-wrap: wrap;
     margin: 6px 0;
 }
+
