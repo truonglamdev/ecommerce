@@ -13,11 +13,12 @@ const register = catchAsyncErrors(async (req, res) => {
         width: 150,
         crop: 'scale',
     });
-    const { name, password, email } = req.body;
+
+    const { name, email, password } = req.body;
 
     const user = await User.create({
-        name,
         email,
+        name,
         password,
         avatar: {
             public_id: myCloud.public_id,
@@ -74,7 +75,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     const resetToken = user.getResetPasswordToken();
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${req.protocol}://${req.get('host')}/password/reset/${resetToken}`;
     const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
     try {

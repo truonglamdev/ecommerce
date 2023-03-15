@@ -1,0 +1,25 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/frotend/node_modules
+/frotend//.pnp
+/frotend/.pnp.js
+
+# testing
+/frotend//coverage
+
+# production
+/frotend//build
+
+# misc
+/Backend/config/config.env
+/frotend/.DS_Store
+/frotend/.env.local
+/frotend/.env.development.local
+/frotend/.env.test.local
+/frotend/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
